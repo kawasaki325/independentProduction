@@ -230,6 +230,12 @@ return [
             'url'  => 'items',
             'icon' => 'fas fa-gamepad',
         ],
+        [
+            'text' => '行先登録',
+            'url' => 'planes',
+            'icon' => 'fas fa-plane',
+        ],
+
 
         // AdminLTEデフォルト
         /*

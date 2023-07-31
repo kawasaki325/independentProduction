@@ -27,3 +27,11 @@ Route::prefix('items')->group(function () {
     Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::delete('/delete/{itemId}', [App\Http\Controllers\ItemController::class, 'delete'])->name('/delete/{itemId}');
 });
+
+
+// 行先登録のルート
+Route::prefix('planes')->group(function() {
+    Route::get('/', App\Http\Controllers\Plane\IndexController::class)->name('planes');
+    Route::get('/create', App\Http\Controllers\Plane\CreateController::class)->name('planes/create');
+    Route::post('/create', App\Http\Controllers\Plane\StoreController::class)->name('planes/create');
+});

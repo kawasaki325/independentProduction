@@ -41,7 +41,7 @@
                                         <form action="{{ route('/delete/{itemId}', ['itemId' => $item->id]) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button class="btn btn-default" type="submit">削除</button>
+                                            <button class="btn btn-default" type="submit" onclick='return confirm("本当に削除しますか？")'>削除</button>
                                         </form>
                                     </td>
                                 </tr>
