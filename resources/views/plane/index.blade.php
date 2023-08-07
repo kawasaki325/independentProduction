@@ -9,17 +9,23 @@
 @section('content')
 
 <a href="{{ route('planes/create') }}">行先登録</a>
-<br>
-{{ $goal[0]->content }}
-<br>
-{{ $goal[0]->date }}
-<br>
-{{ $goal[0]->prices[0]->amount }}
-<br>
-{{ $goal[0]->places[0]->content }}
-<br>
-{{ $goal[0]->times[0]->time }}
 
+@if(!(count($goals) === 0))
+    @foreach($goals as $goal)
+        <br>
+        {{ $goal->content }}
+        <br>
+        {{ $goal->date }}
+        <br>
+        @for($i = 0; $i < count($goal->places); $i++)
+            {{ $goal->places[$i]->content }}
+            <br>
+            {{ $goal->times[$i]->time }}
+            <br>
+        @endfor
+        <div>--------------------------------------------------------</div>
+    @endforeach
+@endif
 
 
 

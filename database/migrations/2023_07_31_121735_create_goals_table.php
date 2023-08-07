@@ -18,6 +18,7 @@ class CreateGoalsTable extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('content');
             $table->date('date');
+            $table->decimal('totalPrice', 10, 2)->default(0);
             $table->timestamps();
         });
     }

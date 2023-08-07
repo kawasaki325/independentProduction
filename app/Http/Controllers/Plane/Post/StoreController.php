@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Plane;
+namespace App\Http\Controllers\Plane\Post;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class StoreController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // 行先を登録する
+                // 行先を登録する
         // validation（チェックのみ）
         $validator = Validator::make($request->all(), [
             'goal' => 'required',
@@ -30,6 +30,8 @@ class StoreController extends Controller
             'place.*' => 'required',
             'time' => 'required|array|min:2',
             'time.*' => 'required',
+            'price' => 'required|array|min:2',
+            'price.*' => 'required',
         ]);
 
         // validation エラーがある場合、エラーメッセージをダンプする
@@ -38,6 +40,7 @@ class StoreController extends Controller
             $goal_json = json_encode($request->goal);
             $date_json = json_encode($request->date);
             $place_json = json_encode($request->place);
+            $price_json = json_encode($request->price);
             $time_json = json_encode($request->time);
 
             return view('plane.create', [
@@ -45,6 +48,7 @@ class StoreController extends Controller
                 'goal' => $goal_json,
                 'date' => $date_json,
                 'place' => $place_json,
+                'price' => $price_json,
                 'time' => $time_json,
             ]);
         }
@@ -53,11 +57,19 @@ class StoreController extends Controller
         // 登録したユーザーidの取得
         $user_id = $request->user()->id;
 
+        // プランの総額を計算
+        $total = 0;
+        foreach ($request->price as $price) {
+            $total = $total + $price;
+        }
+
+
         // goalテーブルに入力値を登録
         $goal = new Goal;
         $goal->user_id = $user_id;
         $goal->content = $request->goal;
         $goal->date = $request->date;
+        $goal->totalPrice = $total;
         $goal->save();
 
         // 登録したgoalテーブルのidを取得
@@ -71,6 +83,14 @@ class StoreController extends Controller
             $places->save();
         }
 
+
+        // priceテーブルに値を登録
+        foreach ($request->price as $price) {
+            $prices = new Price;
+            $prices->goal_id = $goal_id;
+            $prices->amount = $price;
+            $prices->save();
+        }
 
         // timeテーブルに値を登録
         foreach ($request->time as $time) {

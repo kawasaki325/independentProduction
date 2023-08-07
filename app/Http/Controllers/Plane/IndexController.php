@@ -20,13 +20,13 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // プラン一覧表示
+        //ユーザーの登録したプラン一覧を取得
         $user_id = $request->user()->id;
+        $goals = Goal::where('user_id', $user_id)->get();
 
-        $goal = Goal::where('user_id', $user_id)->get();
 
         return view('plane.index' , [
-            'goal' => $goal,
+            'goals' => $goals,
         ]);
 
     }
