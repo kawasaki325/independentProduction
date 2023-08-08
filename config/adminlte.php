@@ -232,7 +232,7 @@ return [
         ],
         [
             'text' => '行先登録',
-            'url' => 'planes',
+            'url' => 'plans',
             'icon' => 'fas fa-plane',
         ],
 

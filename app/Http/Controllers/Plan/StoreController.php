@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Plane;
+namespace App\Http\Controllers\Plan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class StoreController extends Controller
             $place_json = json_encode($request->place);
             $time_json = json_encode($request->time);
 
-            return view('plane.create', [
+            return view('plan.create', [
                 'errors' => $errors,
                 'goal' => $goal_json,
                 'date' => $date_json,
@@ -80,6 +80,6 @@ class StoreController extends Controller
             $times->save();
         }
 
-        return redirect('/planes');
+        return redirect('/plans');
     }
 }

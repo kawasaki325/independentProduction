@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Plane;
+namespace App\Http\Controllers\Plan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,6 +16,6 @@ class CreateController extends Controller
     public function __invoke(Request $request)
     {
         // プラン作成画面
-        return view('plane.create');
+        return view('plan.create');
     }
 }

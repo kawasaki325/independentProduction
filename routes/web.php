@@ -30,8 +30,9 @@ Route::prefix('items')->group(function () {
 
 
 // 行先登録のルート
-Route::prefix('planes')->group(function() {
-    Route::get('/', App\Http\Controllers\Plane\IndexController::class)->name('planes');
-    Route::get('/create', App\Http\Controllers\Plane\CreateController::class)->name('planes/create');
-    Route::post('/create', App\Http\Controllers\Plane\StoreController::class)->name('planes/create');
+Route::prefix('plans')->group(function() {
+    Route::get('/', App\Http\Controllers\Plan\IndexController::class)->name('home');
+    Route::get('/create', App\Http\Controllers\Plan\CreateController::class)->name('create');
+    Route::post('/store', App\Http\Controllers\Plan\StoreController::class)->name('store');
+    Route::get('/edit/{plan}', App\Http\Controllers\Plan\edit\IndexController::class)->name('edit/{plan}');
 });

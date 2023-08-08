@@ -9,7 +9,7 @@
 
 <button class="btn btn-primary js-deletePlace">行先を削除</button>
 
-<form action="{{ route('planes/create') }}" method="post">
+<form action="{{ route('store') }}" method="post">
     @csrf
     <div id="js-plan" data-plan-id="0">
             <div >

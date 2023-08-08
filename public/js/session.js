@@ -33,8 +33,7 @@ $(function() {
                 // 行先登録画面に登録覧を追加する
                 for(let i = 1; i < place.length; i++) {
                     // 値がnullのときnullを表示させないようにしたい
-
-                    $('#js-plan').append(`<div><label for="place">経由地</label> <input type="text" class="form-control" id="place[${i}]" name="place[${i}] " placeholder="経由地" value="${place[i]}">
+                    $('#js-plan').append(`<div id="js-plan-${i}">><label for="place">経由地</label> <input type="text" class="form-control" id="place[${i}]" name="place[${i}] " placeholder="経由地" value="${place[i]}">
                     <label for="time">時間</label><input type="time" class="form-control" id="time[${i}]" name="time[${i}]" placeholder="時間" value=${time[i]}></div>`);
                 }
             }

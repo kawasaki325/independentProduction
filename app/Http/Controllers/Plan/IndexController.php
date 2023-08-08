@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Plane;
+namespace App\Http\Controllers\Plan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class IndexController extends Controller
         $goals = Goal::where('user_id', $user_id)->get();
 
 
-        return view('plane.index' , [
+        return view('plan.index' , [
             'goals' => $goals,
         ]);
 
