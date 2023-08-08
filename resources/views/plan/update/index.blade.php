@@ -8,7 +8,7 @@
 
 @section('content')
 
-<a href="">編集</a>
+<a href="{{ route('update/create/{plan}', ['plan' => $goal->id]) }}">編集</a>
 <a href="">削除</a>
 
 <div class="myPlan">

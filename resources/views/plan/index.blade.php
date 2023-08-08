@@ -13,7 +13,7 @@
 <div class="myPlan">
     @if(!(count($goals) === 0))
         @foreach($goals as $goal)
-            <a href="{{ route('edit/{plan}', ['plan' => $goal->id]) }}" class="myPlan-item">
+            <a href="{{ route('update/{plan}', ['plan' => $goal->id]) }}" class="myPlan-item">
                 <div class="myPlan-header">
                     <div class="myPlan-title">{{ $goal->content }}</div>
                     <div class="myPlan-date">{{ $goal->date }}</div>

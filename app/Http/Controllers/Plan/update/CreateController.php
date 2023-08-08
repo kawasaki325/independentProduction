@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Plan\edit;
+namespace App\Http\Controllers\Plan\update;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use App\Models\Place;
 use App\Models\Time;
 use App\Models\Price;
 
-class IndexController extends Controller
+class CreateController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -23,7 +23,7 @@ class IndexController extends Controller
         $plan_id = $request->route('plan');
         $goal = Goal::where('id', $plan_id)->firstOrFail();
 
-        return view('plan.edit.index' , [
+        return view('plan.update.create' , [
             'goal' => $goal,
         ]);
     }

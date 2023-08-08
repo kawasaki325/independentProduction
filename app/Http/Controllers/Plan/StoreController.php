@@ -25,7 +25,7 @@ class StoreController extends Controller
         // validation（チェックのみ）
         $validator = Validator::make($request->all(), [
             'goal' => 'required',
-            'date' => 'required:strtotime',
+            'date' => 'required',
             'place' => 'required|array|min:2',
             'place.*' => 'required',
             'time' => 'required|array|min:2',

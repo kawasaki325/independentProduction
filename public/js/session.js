@@ -13,8 +13,15 @@ $(function() {
         date = JSON.parse(date);
         place = JSON.parse(place);
         time = JSON.parse(time);
+
+        if(place !== null) {
+            // データの数を取得
+            var arrayCount = place.length;
+        } else {
+            return;
+        }
         // もしセッションから取得したデータがあれば
-        if(place.length > 0) {
+        if(arrayCount > 0) {
             // 行先登録画面に最初からある登録覧に値を入力
             $('#goal').attr({
                 'value': goal,
@@ -29,16 +36,16 @@ $(function() {
                 'value': time[0],
             });
             // セッションから取得したデータが複数であれば
-            if(place.length > 1) {
+            if(arrayCount > 1) {
                 // 行先登録画面に登録覧を追加する
-                for(let i = 1; i < place.length; i++) {
+                for(let i = 1; i < arrayCount; i++) {
                     // 値がnullのときnullを表示させないようにしたい
-                    $('#js-plan').append(`<div id="js-plan-${i}">><label for="place">経由地</label> <input type="text" class="form-control" id="place[${i}]" name="place[${i}] " placeholder="経由地" value="${place[i]}">
-                    <label for="time">時間</label><input type="time" class="form-control" id="time[${i}]" name="time[${i}]" placeholder="時間" value=${time[i]}></div>`);
+                    $('#js-plan').append(`<div id="js-plan-${i}"><label for="place">経由地</label> <input type="text" class="form-control" id="place[${i}]" name="place[${i}] " placeholder="経由地" value="${place[i]}">
+                    <label for="time">時間</label><input type="time" class="form-control" id="time[${i}]" name="time[${i}]" placeholder="時間" value="${time[i]}"></div>`);
                 }
             }
             // plan-id（経由地・時間・金額が何セット記入してあるか）を更新
-            $('#js-plan').attr('data-plan-id', place.length - 1);
+            $('#js-plan').attr('data-plan-id', arrayCount - 1);
         }
         // セッションのデータを削除
         sessionStorage.clear();

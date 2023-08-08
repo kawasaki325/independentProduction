@@ -34,6 +34,7 @@ Route::prefix('plans')->group(function() {
     Route::get('/', App\Http\Controllers\Plan\IndexController::class)->name('home');
     Route::get('/create', App\Http\Controllers\Plan\CreateController::class)->name('create');
     Route::post('/store', App\Http\Controllers\Plan\StoreController::class)->name('store');
-    Route::get('/edit/{plan}', App\Http\Controllers\Plan\edit\IndexController::class)->name('edit/{plan}');
-    Route::get('/edit/{plan}', App\Http\Controllers\Plan\edit\IndexController::class)->name('edit/{plan}');
+    Route::get('/update/{plan}', App\Http\Controllers\Plan\update\IndexController::class)->name('update/{plan}');
+    Route::get('/update/create/{plan}', App\Http\Controllers\Plan\update\CreateController::class)->name('update/create/{plan}');
+    Route::put('/update/put/', App\Http\Controllers\Plan\update\PutController::class)->name('update/put');
 });
