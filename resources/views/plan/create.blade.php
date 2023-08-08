@@ -21,9 +21,9 @@
                 <!-- <label for="price">金額</label>
                 <input type="number" class="form-control" id="price" name="price[0]" placeholder="金額を入力" value="{{ old('price.0') }}"> -->
                 <label for="place">経由地</label>
-                <input type="text" class="form-control" id="place" name="place[0]" placeholder="経由地" value="{{ old('place.0') }}">
+                <input type="text" class="form-control" id="place" name="place[0]" placeholder="経由地">
                 <label for="time">時間</label>
-                <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間" value="{{ old('time.0') }}">
+                <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間">
             </div>
 
         </div>

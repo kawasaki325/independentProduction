@@ -8,6 +8,8 @@
 
 @section('content')
 
+<a href="">編集</a>
+<a href="">削除</a>
 
 <div class="myPlan">
     <div class="myPlan-header">
