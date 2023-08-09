@@ -10,6 +10,10 @@
 
 <a href="{{ route('create') }}">行先登録</a>
 
+@if(session('feedback.success'))
+    <p style="color: green;">{{ session('feedback.success') }}</p>
+@endif
+
 <div class="myPlan">
     @if(!(count($goals) === 0))
         @foreach($goals as $goal)

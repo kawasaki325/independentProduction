@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Goal;
-use App\Models\Place;
-use App\Models\Time;
-use App\Models\Price;
 
 class CreateController extends Controller
 {

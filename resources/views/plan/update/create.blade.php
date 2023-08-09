@@ -12,22 +12,23 @@
     @method('PUT')
     @csrf
     <div id="js-plan" data-plan-id="{{ count($goal->places) - 1 }}">
-            <input type="hidden" name="goal_id" value="{{$goal->id}}">
-            <div >
-                <label for="goal">プランの名前</label>
-                <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ $goal->content }}">
-                <input type="date" class="form-control" id="date" name="date" value="{{ $goal->date }}">
+        <input type="hidden" name="goal_id" value="{{$goal->id}}">
+        <div >
+            <label for="goal">プランの名前</label>
+            <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ $goal->content }}">
+            <input type="date" class="form-control" id="date" name="date" value="{{ $goal->date }}">
+        </div>
+
+        @for($i = 0; $i < count($goal->places); $i++)
+            <div id="js-plan-{{$i}}">
+                <label for="place">経由地</label>
+                <input type="text" class="form-control" id="place" name="place[{{$i}}]" placeholder="経由地" value="{{ $goal->places[$i]->content }}">
+                <label for="time">時間</label>
+                <input type="time" class="form-control" id="time" name="time[{{$i}}]" placeholder="時間" value="{{ $goal->times[$i]->time }}">
+                <label for="memo">メモ</label>
+                <textarea name="memo[{{ $i }}]" id="memo" placeholder="メモ">{{$goal->places[$i]->memo->content}}</textarea>
             </div>
-
-            @for($i = 0; $i < count($goal->places); $i++)
-                <div id="js-plan-{{$i}}">
-                    <label for="place">経由地</label>
-                    <input type="text" class="form-control" id="place" name="place[{{$i}}]" placeholder="経由地" value="{{ $goal->places[$i]->content }}">
-                    <label for="time">時間</label>
-                    <input type="time" class="form-control" id="time" name="time[{{$i}}]" placeholder="時間" value="{{ $goal->times[$i]->time }}">
-                </div>
-            @endfor
-
+        @endfor
     </div>
 
     <div>

@@ -15,4 +15,10 @@ class Place extends Model
     {
         return $this->belongsTo(Goal::class);
     }
+
+    // memoを取得するリレーション
+    public function memo()
+    {
+        return $this->hasOne(Memo::class);
+    }
 }

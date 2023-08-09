@@ -24,6 +24,8 @@
                 <input type="text" class="form-control" id="place" name="place[0]" placeholder="経由地">
                 <label for="time">時間</label>
                 <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間">
+                <label for="memo">メモ</label>
+                <textarea name="memo[0]" id="memo" placeholder="メモ"></textarea>
             </div>
 
         </div>
@@ -49,13 +51,16 @@
             var goal = @json($goal);
             var date = @json($date);
             var place = @json($place);
+            var memo = @json($memo);
             var time = @json($time);
             // 取得したデータをセッションに保存
             sessionStorage.setItem('goal', goal);
             sessionStorage.setItem('date', date);
             sessionStorage.setItem('place', place);
+            sessionStorage.setItem('memo', memo);
             sessionStorage.setItem('time', time);
         @endif
+        console.log(memo);
     })
 </script>
 <script src="{{ asset('js/addPlace.js') }}"></script>

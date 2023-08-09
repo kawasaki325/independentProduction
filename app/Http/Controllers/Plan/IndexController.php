@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Goal;
 use App\Models\Place;
+use App\Models\Memo;
 use App\Models\Time;
 use App\Models\Price;
 
@@ -23,7 +24,6 @@ class IndexController extends Controller
         //ユーザーの登録したプラン一覧を取得
         $user_id = $request->user()->id;
         $goals = Goal::where('user_id', $user_id)->get();
-
 
         return view('plan.index' , [
             'goals' => $goals,

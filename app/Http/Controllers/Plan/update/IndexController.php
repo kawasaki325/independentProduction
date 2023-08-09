@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Goal;
-use App\Models\Place;
-use App\Models\Time;
-use App\Models\Price;
 
 class IndexController extends Controller
 {
@@ -22,7 +19,7 @@ class IndexController extends Controller
     {
         $plan_id = $request->route('plan');
         $goal = Goal::where('id', $plan_id)->firstOrFail();
-
+        
         return view('plan.update.index' , [
             'goal' => $goal,
         ]);

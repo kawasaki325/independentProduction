@@ -37,4 +37,5 @@ Route::prefix('plans')->group(function() {
     Route::get('/update/{plan}', App\Http\Controllers\Plan\update\IndexController::class)->name('update/{plan}');
     Route::get('/update/create/{plan}', App\Http\Controllers\Plan\update\CreateController::class)->name('update/create/{plan}');
     Route::put('/update/put/', App\Http\Controllers\Plan\update\PutController::class)->name('update/put');
+    Route::delete('/update/delete/{plan}/', App\Http\Controllers\Plan\update\DeleteController::class)->name('update/delete/{plan}');
 });
