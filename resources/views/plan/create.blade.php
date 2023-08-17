@@ -9,6 +9,13 @@
 
 <button class="btn btn-primary js-deletePlace">行先を削除</button>
 
+@if (count($errors) > 0)
+    @foreach ($errors as $error)
+        {{ $error[0] }}
+        <br>
+    @endforeach
+@endif
+
 <form action="{{ route('store') }}" method="post">
     @csrf
     <div id="js-plan" data-plan-id="0">
@@ -35,12 +42,7 @@
         </div>
     </form>
     
-    @if (count($errors) > 0)
-        @foreach ($errors as $error)
-            {{ $error[0] }}
-            <br>
-        @endforeach
-    @endif
+
 @stop
 
 @section('js')

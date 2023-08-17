@@ -32,6 +32,7 @@ class PutController extends Controller
             'time.*' => 'required',
         ]);
 
+
         // goalのデータを変更
         $goal = Goal::where('id', $request->goal_id)->firstOrFail();
         $goal->content = $request->goal;

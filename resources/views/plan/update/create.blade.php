@@ -7,6 +7,13 @@
 
 <!-- <button class="btn btn-primary js-addPlace">行先を追加</button>
 <button class="btn btn-primary js-deletePlace">行先を削除</button> -->
+@if (count($errors) > 0)
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif
 
 <form action="{{ route('update/put') }}" method="post">
     @method('PUT')
@@ -36,12 +43,7 @@
     </div>
 </form>
     
-    @if (count($errors) > 0)
-        @foreach ($errors as $error)
-            {{ $error[0] }}
-            <br>
-        @endforeach
-    @endif
+
 @stop
 
 

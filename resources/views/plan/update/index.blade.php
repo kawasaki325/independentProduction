@@ -29,10 +29,17 @@
             <div class="myPlan-time ml-3">{{ $goal->times[$i]->time }}</div>
         </div>
         <div class="myPlan-memo">
-        {{$goal->places[$i]->memo->content}}
+            {!! nl2br(e($goal->places[$i]->memo->content)) !!}
         </div>
     @endfor
 </div>
+
+@if (count($errors) > 0)
+    @foreach ($errors as $error)
+        {{ $error[0] }}
+        <br>
+    @endforeach
+@endif
 
 @stop
 
@@ -59,16 +66,24 @@
         transform: translateY(-50%);
     }
 
-    .myPlan-body:after {
+    .myPlan-memo {
+        min-height: 20px;
+        padding: 20px 0 20px 20px;
+        position: relative;
+    }
+
+    .myPlan-memo:before {
         content: "";
         width: 1px;
-        height: 20px;
+        height: 110%;
         background: black;
         position: absolute;
         top: 50%;
-        left: 0;
+        left: 7px;
         transform: translateY(-50%);
     }
+
+
 
 
 
