@@ -14,6 +14,19 @@
     @csrf
     <button type="submit" onclick='return confirm("本当に削除しますか？")'>削除</button>
 </form>
+
+<form action="{{ route('status/put/{plan}', ['plan' => $goal->id]) }}" method="post">
+    @method('PUT')
+    @csrf
+    @if($goal->status === 'normal')
+    <button type="submit" onclick='return confirm("本当に投稿しますか？")'>投稿する</button>
+    @else
+    <button type="submit" onclick='return confirm("本当に投稿を削除しますか？")'>投稿を削除する</button>
+    @endif
+</form>
+
+
+
 @if(session('feedback.success'))
     <p style="color: green;">{{ session('feedback.success') }}</p>
 @endif
@@ -30,6 +43,10 @@
         </div>
         <div class="myPlan-memo">
             {!! nl2br(e($goal->places[$i]->memo->content)) !!}
+            <br>
+            @if($i != count($goal->places) - 1)
+                {{ $goal->prices[$i]->amount }}
+            @endif
         </div>
     @endfor
 </div>
@@ -70,9 +87,15 @@
         min-height: 20px;
         padding: 20px 0 20px 20px;
         position: relative;
+        
+    }
+
+    .myPlan-memo:last-child:before {
+        display:none;
     }
 
     .myPlan-memo:before {
+
         content: "";
         width: 1px;
         height: 110%;

@@ -17,6 +17,7 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
+        
         $plan_id = $request->route('plan');
         $goal = Goal::where('id', $plan_id)->firstOrFail();
         

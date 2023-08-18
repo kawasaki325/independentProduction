@@ -33,6 +33,8 @@ class StoreController extends Controller
             'memo.*' => 'nullable',
             'time' => 'required|array|min:2',
             'time.*' => 'required',
+            'price' => 'required|array|min:2',
+            'price.*' => 'required',
         ]);
 
         // validation エラーがある場合、エラーメッセージをダンプする
@@ -42,6 +44,7 @@ class StoreController extends Controller
             $date_json = json_encode($request->date);
             $place_json = json_encode($request->place);
             $memo_json = json_encode($request->memo);
+            $price_json = json_encode($request->price);
             $time_json = json_encode($request->time);
 
             return view('plan.create', [
@@ -50,6 +53,7 @@ class StoreController extends Controller
                 'date' => $date_json,
                 'place' => $place_json,
                 'memo' => $memo_json,
+                'price' => $price_json,
                 'time' => $time_json,
             ]);
         }
@@ -58,11 +62,20 @@ class StoreController extends Controller
         // 登録したユーザーidの取得
         $user_id = $request->user()->id;
 
+        // priceの合計を計算する為の変数
+        $totalPrice = 0;
+
+        // priceテーブルに値を登録
+        foreach ($request->price as $price) {
+            $totalPrice += $price;
+        }
+
         // goalテーブルに入力値を登録
         $goal = new Goal;
         $goal->user_id = $user_id;
         $goal->content = $request->goal;
         $goal->date = $request->date;
+        $goal->totalPrice = $totalPrice;
         $goal->save();
 
         // 登録したgoalテーブルのidを取得
@@ -79,6 +92,15 @@ class StoreController extends Controller
             $places->content = $place;
             $places->save();
             $place_id[] = $places->id;
+        }
+
+        // priceテーブルに値を登録
+        foreach ($request->price as $price) {
+            $prices = new Price;
+            $prices->goal_id = $goal_id;
+            $prices->amount = $price;
+            $prices->save();
+            $totalPrice += $price;
         }
 
         // memoテーブルに値を登録

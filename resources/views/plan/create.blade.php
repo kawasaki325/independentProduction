@@ -25,8 +25,6 @@
                 <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
             </div>
             <div>
-                <!-- <label for="price">金額</label>
-                <input type="number" class="form-control" id="price" name="price[0]" placeholder="金額を入力" value="{{ old('price.0') }}"> -->
                 <label for="place">経由地</label>
                 <input type="text" class="form-control" id="place" name="place[0]" placeholder="経由地">
                 <label for="time">時間</label>

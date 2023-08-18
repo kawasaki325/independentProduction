@@ -30,13 +30,26 @@ class PutController extends Controller
             'memo.*' => 'nullable',
             'time' => 'required|array|min:2',
             'time.*' => 'required',
+            'price' => 'required|array|min:2',
+            'price.*' => 'required',
         ]);
 
+        // priceの合計を計算する為の変数
+        $totalPrice = 0;
+
+        // priceのデータを変更
+        $prices = Price::where('goal_id', $request->goal_id)->get();
+        for($i=0; $i < count($prices); $i++) {
+            $prices[$i]->amount = $request->price[$i];
+            $prices[$i]->save();
+            $totalPrice += $request->price[$i];
+        }
 
         // goalのデータを変更
         $goal = Goal::where('id', $request->goal_id)->firstOrFail();
         $goal->content = $request->goal;
         $goal->date = $request->date;
+        $goal->totalPrice = $totalPrice;
         $goal->save();
 
         // memoのデータを編集するための変数

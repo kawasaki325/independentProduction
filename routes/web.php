@@ -31,11 +31,21 @@ Route::prefix('items')->group(function () {
 
 // 行先登録のルート
 Route::prefix('plans')->group(function() {
+    // 新規に登録
     Route::get('/', App\Http\Controllers\Plan\IndexController::class)->name('home');
     Route::get('/create', App\Http\Controllers\Plan\CreateController::class)->name('create');
     Route::post('/store', App\Http\Controllers\Plan\StoreController::class)->name('store');
+
+    // 登録したものを編集
     Route::get('/update/{plan}', App\Http\Controllers\Plan\update\IndexController::class)->name('update/{plan}');
     Route::get('/update/create/{plan}', App\Http\Controllers\Plan\update\CreateController::class)->name('update/create/{plan}');
     Route::put('/update/put/', App\Http\Controllers\Plan\update\PutController::class)->name('update/put');
     Route::delete('/update/delete/{plan}/', App\Http\Controllers\Plan\update\DeleteController::class)->name('update/delete/{plan}');
+
+    // 投稿するときの処理
+    Route::put('status/put/{plan}/', App\Http\Controllers\Plan\status\putController::class)->name('status/put/{plan}');
+
+    // 投稿されたものを表示
 });
+
+

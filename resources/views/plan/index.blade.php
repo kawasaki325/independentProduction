@@ -21,8 +21,12 @@
                 <div class="myPlan-header">
                     <div class="myPlan-title">{{ $goal->content }}</div>
                     <div class="myPlan-date">{{ $goal->date }}</div>
+                    <div class="myPlan-date">{{ $goal->totalPrice }}</div>
                 </div>
             </a>
+            @if($goal->status == 'active')
+                <p>投稿済み</p>
+            @endif
         @endforeach
     @endif
 </div>
