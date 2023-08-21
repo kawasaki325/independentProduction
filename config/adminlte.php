@@ -235,6 +235,11 @@ return [
             'url' => 'plans',
             'icon' => 'fas fa-plane',
         ],
+        [
+            'text' => '共有',
+            'url' => 'plans/share',
+            'icon' => 'fas fa-plane',
+        ],
 
 
         // AdminLTEデフォルト

@@ -35,4 +35,10 @@ class Goal extends Model
     {
         return $this->hasMany(Price::class);
     }
+
+    // userとgoalの中間テーブルのためのリレーション
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
 }

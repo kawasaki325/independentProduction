@@ -7,14 +7,14 @@ $(function() {
         var goal = sessionStorage.getItem('goal');
         var date = sessionStorage.getItem('date');
         var place = sessionStorage.getItem('place');
-        var place = sessionStorage.getItem('price');
+        var price = sessionStorage.getItem('price');
         var memo = sessionStorage.getItem('memo');
         var time = sessionStorage.getItem('time');
         // セッションから取得したデータを使えるようにする
         goal = JSON.parse(goal);
         date = JSON.parse(date);
         place = JSON.parse(place);
-        place = JSON.parse(price);
+        price = JSON.parse(price);
         memo = JSON.parse(memo);
         time = JSON.parse(time);
 
@@ -36,9 +36,6 @@ $(function() {
             $('#place').attr({
                 'value': place[0],
             });
-            $('#place').attr({
-                'value': price[0],
-            });
             $('#memo').text (memo[0]);
             $('#time').attr({
                 'value': time[0],
@@ -47,11 +44,30 @@ $(function() {
             if(arrayCount > 1) {
                 // 行先登録画面に登録覧を追加する
                 for(let i = 1; i < arrayCount; i++) {
-                    // 値がnullのときnullを表示させないようにしたい
-                    $('#js-plan').append(`<div id="js-plan-${i}""><label for="place">経由地</label> <input type="text" class="form-control" id="place[${i}]" name="place[${i}] " placeholder="経由地" value="${place[i] ?? ''}">
-                    <label for="time">時間</label><input type="time" class="form-control" id="time[${i}]" name="time[${i}]" placeholder="時間" value="${time[i]}">
-                    <label for="place">金額</label><input type="number" class="form-control" id="price[${i}]" name="price[${i}]" value="${price[i]}">
-                    <label for="memo">メモ</label><textarea name="memo[${i}]" id="memo[${i}]" placeholder="メモ">${memo[i] ?? ''}</textarea></div>`);
+                    
+                    let priceInput = '';
+                    if (price[i-1] !== undefined && price[i-1] !== null && price[i-1] !== '') {
+                        priceInput = `<label for="place">金額</label><input type="number" class="form-control" id="price[${i-1}]" name="price[${i-1}]" value="${price[i-1]}">`;
+                    }
+
+                    $('#js-plan').append(`<div id="js-plan-${i}"">
+                    <div class="input-area">
+                        <div class="input-items">
+                            <div class="input-item">
+                                <label for="place">経由地</label> <input type="text" class="form-control" id="place[${i}]" name="place[${i}] " placeholder="経由地" value="${place[i] ?? ''}">
+                            </div>
+                            <div class="input-item">
+                                <label for="time">時間</label><input type="time" class="form-control" id="time[${i}]" name="time[${i}]" placeholder="時間" value="${time[i]}">
+                            </div>
+                            <div class="input-item">
+                                ${priceInput}
+                            </div>
+                            <div class="input-item">
+                                <label for="memo">メモ</label><textarea name="memo[${i}]" id="memo[${i}]" placeholder="メモ">${memo[i] ?? ''}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    </div>`);
                 }
             }
             // plan-id（経由地・時間・金額が何セット記入してあるか）を更新
@@ -61,5 +77,4 @@ $(function() {
         sessionStorage.clear();
     });
 });
-
 

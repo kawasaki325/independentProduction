@@ -51,4 +51,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Goal::class);
     }
+
+    // userとgoalの中間テーブルのためのリレーション
+    public function likedGoals()
+    {
+        return $this->belongsToMany(Goal::class, 'likes')->withTimestamps();
+    }
 }

@@ -30,7 +30,7 @@ Route::prefix('items')->group(function () {
 
 
 // 行先登録のルート
-Route::prefix('plans')->group(function() {
+Route::prefix('/plans')->group(function() {
     // 新規に登録
     Route::get('/', App\Http\Controllers\Plan\IndexController::class)->name('home');
     Route::get('/create', App\Http\Controllers\Plan\CreateController::class)->name('create');
@@ -46,6 +46,13 @@ Route::prefix('plans')->group(function() {
     Route::put('status/put/{plan}/', App\Http\Controllers\Plan\status\putController::class)->name('status/put/{plan}');
 
     // 投稿されたものを表示
+    Route::get('/share', App\Http\Controllers\Plan\share\IndexController::class)->name('share');
+    Route::get('/share/detail/{plan}', App\Http\Controllers\Plan\share\PlanDetailController::class)->name('share/detail/{plan}');
+
+
+
+    // 投稿がいいねされたとき
+    Route::post('/share/like', App\Http\Controllers\Plan\share\LikeController::class)->name('share/like');
 });
 
 
