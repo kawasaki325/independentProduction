@@ -30,76 +30,96 @@
     <p style="color: green;">{{ session('feedback.success') }}</p>
 @endif
 
-<div class="myPlan">
-    <div class="myPlan-header">
-        <div class="myPlan-title">{{ $goal->content }}</div>
-        <div class="myPlan-date">{{ $goal->date }}</div>
-    </div>
+<div class="d-flex p-3 bg-white align-items-center">
+    <h2 class="mb-0 ml-3">{{ $goal->content }}</h2>
+    <h3 class="ml-5 mb-0">{{ $goal->date }}</h3>
+</div>
+
+<div class="list-group">
     @for($i = 0; $i < count($goal->places); $i++)
-        <div class="myPlan-body">
+        <div class="list-group-item list-group-item-action d-flex align-items-center">
+            @if($i===0)
+            <div class="ml-3">{{ substr($goal->times[$i]->time, 0, 5) }}</div>
+            @elseif($i == count($goal->places)-1)
+            <div class="ml-3">{{ substr($goal->times[$i*2-1]->time, 0, 5) }}</div>
+            @else
+            <div class="text-center">
+                <div class="ml-3">{{substr($goal->times[$i*2-1]->time, 0, 5) }}</div>
+                <div class="ml-3">|</div>
+                <div class="ml-3">{{ substr($goal->times[$i*2]->time, 0, 5) }}</div>
+            </div>
+            @endif
             <div class="myPlan-place ml-5">{{ $goal->places[$i]->content }}</div>
-            <div class="myPlan-time ml-3">{{ $goal->times[$i]->time }}</div>
-        </div>
-        <div class="myPlan-memo">
-            {!! nl2br(e($goal->places[$i]->memo->content)) !!}
-            <br>
-            @if($i != count($goal->places) - 1)
-                {{ $goal->prices[$i]->amount }}
+            @if($i !== count($goal->places)-1)
+                <button type="button" class="btn btn-outline-secondary js-detail ml-auto">移動詳細</button>
             @endif
         </div>
+        @if($i != count($goal->places) - 1)
+            <div class="js-content" style="display: none;">
+                <div class="list-group-item list-group-item-action d-flex align-items-center">
+                    
+                    @if($i !== 0)
+                        <div>
+                            移動時間：
+                            @php
+                                $timeDifference = $goal->times[$i*2 + 1]->formattedTime->diffInSeconds($goal->times[$i*2]->formattedTime);
+                                $hours = floor($timeDifference / 3600);
+                                $minutes = floor(($timeDifference - ($hours * 3600)) / 60);
+                            @endphp
+            
+                            @if ($hours > 0)
+                                {{ $hours }} 時間
+                            @endif
+            
+                            @if ($minutes > 0)
+                                {{ $minutes }} 分
+                            @endif
+                        </div>
+                    @else
+                        <div>
+                            移動時間：
+                            @php
+                                $timeDifference = $goal->times[1]->formattedTime->diffInSeconds($goal->times[0]->formattedTime);
+                                $hours = floor($timeDifference / 3600);
+                                $minutes = floor(($timeDifference - ($hours * 3600)) / 60);
+                            @endphp
+    
+                            @if ($hours > 0)
+                                {{ $hours }} 時間
+                            @endif
+    
+                            @if ($minutes > 0)
+                                {{ $minutes }} 分
+                            @endif
+                        </div>
+                    @endif
+    
+                    <div>
+                        移動費：{{ $goal->prices[$i]->amount }}円
+                    </div>
+                    {{ $goal->prices[$i]->transportation->transportation }}
+                </div>
+                
+            </div>
+        @endif
     @endfor
 </div>
+<div class="list-group-item list-group-item-action d-flex align-items-center">
+    <div  class="ml-auto" style="font-size: 20px;">
+        移動費合計：{{ $goal->totalPrice }} 円
+    </div>
+</div>
+
 
 @stop
 
 @section('js')
 <script src="{{ asset('js/like.js') }}"></script>
+<script src="{{ asset('js/slide.js') }}"></script>
 @stop
 
 @section('css')
 <style>
-    .myPlan-header {
-        display: flex;
-    }
 
-    .myPlan-body {
-        display: flex;
-        position: relative;
-    }
-
-    .myPlan-body:before {
-        content: "";
-        width: 1em;
-        height: 1em;
-        border-radius: 50%;
-        background: black;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-    }
-
-    .myPlan-memo {
-        min-height: 20px;
-        padding: 20px 0 20px 20px;
-        position: relative;
-        
-    }
-
-    .myPlan-memo:last-child:before {
-        display:none;
-    }
-
-    .myPlan-memo:before {
-
-        content: "";
-        width: 1px;
-        height: 110%;
-        background: black;
-        position: absolute;
-        top: 50%;
-        left: 7px;
-        transform: translateY(-50%);
-    }
 </style>
 @stop

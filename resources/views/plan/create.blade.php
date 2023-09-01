@@ -17,37 +17,68 @@
 @endif
 
 <form  class="create-form" action="{{ route('store') }}" method="post">
-    @csrf
-    <div id="js-plan" data-plan-id="0">
-            <div>
-                <label for="goal">プランの名前</label>
-                <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}">
-                <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
-            </div>
-            <div class="input-area">
-                <div class="input-items">
-                    <div class="input-item">
-                        <label for="place">経由地</label>
-                        <input type="text" class="form-control" id="place" name="place[0]" placeholder="経由地">
-                    </div>
-                    <div class="input-item">
-                        <label for="time">時間</label>
-                        <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間">
-                    </div>
-                    <div class="input-item is-row">
-                        <label for="memo">メモ</label>
-                        <textarea name="memo[0]" id="memo" placeholder="メモ"></textarea>
-                    </div>
+@csrf
+    <div id="js-plan" data-plan-id="1">
+        <div>
+            <label for="goal">プランの名前</label>
+            <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}">
+            <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
+        </div>
+        <div class="input-area">
+            <div class="input-items">
+                <div class="input-item">
+                    <label for="place">経由地</label>
+                    <input type="text" class="form-control" id="place" name="place[0]" placeholder="経由地">
+                </div>
+                <div class="input-item">
+                    <label for="time">時間</label>
+                    <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間">
+                </div>
+                <div class="input-item is-row">
+                    <label for="memo">メモ</label>
+                    <textarea name="memo[0]" id="memo" placeholder="メモ"></textarea>
                 </div>
             </div>
-
         </div>
 
-        <div>
-            <button type="submit" class="btn btn-primary">登録</button>
+        <div class="input-area add-point">
+            <div class="input-items">
+                <div class="input-item">
+                    <label for="place">経由地</label>
+                    <input type="text" class="form-control" id="placeNext" name="place[1]" placeholder="経由地">
+                </div>
+                <div class="input-item">
+                    <label for="time">時間</label>
+                    <input type="time" class="form-control" id="timeNext" name="time[1]" placeholder="時間">
+                </div>
+                <div class="input-item">
+                    <label for="price">金額</label>
+                    <input type="number" class="form-control" id="price" name="price[0]" value="0">
+                </div>
+                <div class="input-item">
+                    <label for="transportation">移動手段</label>
+                    <select name="transportation[0]" id="transportation">
+                        <option value="車">車</option>
+                        <option value="タクシー">タクシー</option>
+                        <option value="電車">電車</option>
+                        <option value="新幹線">新幹線</option>
+                        <option value="徒歩">徒歩</option>
+                        <option value="その他">その他</option>
+                    </select>
+                </div>
+                <div class="input-item is-row">
+                    <label for="memo">メモ</label>
+                    <textarea name="memo[1]" id="memoNext" placeholder="メモ"></textarea>
+                </div>
+            </div>
         </div>
-    </form>
-    
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">登録</button>
+    </div>
+</form>
+
 
 @stop
 
@@ -60,12 +91,14 @@
             var date = @json($date);
             var place = @json($place);
             var price = @json($price);
+            var transportation = @json($transportation);
             var memo = @json($memo);
             var time = @json($time);
             // 取得したデータをセッションに保存
             sessionStorage.setItem('goal', goal);
             sessionStorage.setItem('date', date);
             sessionStorage.setItem('place', place);
+            sessionStorage.setItem('transportation', transportation);
             sessionStorage.setItem('price', price);
             sessionStorage.setItem('memo', memo);
             sessionStorage.setItem('time', time);

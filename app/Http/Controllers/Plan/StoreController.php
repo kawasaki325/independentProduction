@@ -11,6 +11,7 @@ use App\Models\Place;
 use App\Models\Memo;
 use App\Models\Time;
 use App\Models\Price;
+use App\Models\Transportation;
 
 class StoreController extends Controller
 {
@@ -33,7 +34,9 @@ class StoreController extends Controller
             'memo.*' => 'nullable',
             'time' => 'required|array|min:2',
             'time.*' => 'required',
-            'price' => 'required|array|min:2',
+            'transportation' => 'required|array|min:1',
+            'transportation.*' => 'required',
+            'price' => 'required|array|min:1',
             'price.*' => 'required',
         ]);
 
@@ -44,6 +47,7 @@ class StoreController extends Controller
             $date_json = json_encode($request->date);
             $place_json = json_encode($request->place);
             $memo_json = json_encode($request->memo);
+            $transportation_json = json_encode($request->transportation);
             $price_json = json_encode($request->price);
             $time_json = json_encode($request->time);
 
@@ -53,6 +57,7 @@ class StoreController extends Controller
                 'date' => $date_json,
                 'place' => $place_json,
                 'memo' => $memo_json,
+                'transportation' => $transportation_json,
                 'price' => $price_json,
                 'time' => $time_json,
             ]);
@@ -85,6 +90,10 @@ class StoreController extends Controller
         $place_id = [];
         $i = 0;
 
+        // transportationテーブルにplace_idを登録する為の変数
+        $price_id = [];
+        $p = 0;
+
         // placeテーブルに値を登録
         foreach ($request->place as $place) {
             $places = new Place;
@@ -101,6 +110,16 @@ class StoreController extends Controller
             $prices->amount = $price;
             $prices->save();
             $totalPrice += $price;
+            $price_id[] = $prices->id;
+        }
+
+        // transportationテーブルに値を登録
+        foreach ($request->transportation as $transportation) {
+            $transportations = new Transportation;
+            $transportations->price_id = $price_id[$p];
+            $transportations->transportation = $transportation;
+            $transportations->save();
+            $p++;
         }
 
         // memoテーブルに値を登録
@@ -111,6 +130,8 @@ class StoreController extends Controller
             $memos->save();
             $i++;
         }
+
+
 
         // timeテーブルに値を登録
         foreach ($request->time as $time) {

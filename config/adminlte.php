@@ -240,6 +240,11 @@ return [
             'url' => 'plans/share',
             'icon' => 'fas fa-plane',
         ],
+        [
+            'text' => 'いいねした投稿',
+            'url' => 'plans/like',
+            'icon' => 'fas fa-plane',
+        ],
 
 
         // AdminLTEデフォルト

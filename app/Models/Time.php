@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Time extends Model
 {
@@ -15,5 +16,10 @@ class Time extends Model
     public function goal()
     {
         return $this->belongsTo(Time::class);
+    }
+
+    public function getFormattedTimeAttribute()
+    {
+        return Carbon::parse($this->attributes['time']);
     }
 }

@@ -15,4 +15,10 @@ class Price extends Model
     {
         return $this->belongsTo(Price::class);
     }
+
+    // transportationを取得するリレーション
+    public function transportation()
+    {
+        return $this->hasOne(Transportation::class);
+    }
 }

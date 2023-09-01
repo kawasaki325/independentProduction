@@ -31,17 +31,27 @@
     <p style="color: green;">{{ session('feedback.success') }}</p>
 @endif
 
-<div class="myPlan">
-    <div class="myPlan-header">
-        <div class="myPlan-title">{{ $goal->content }}</div>
-        <div class="myPlan-date">{{ $goal->date }}</div>
-    </div>
+
+<div class="myPlan-header">
+    <div class="myPlan-title">{{ $goal->content }}</div>
+    <div class="myPlan-date">{{ $goal->date }}</div>
+</div>
+
+<div class="list-group">
     @for($i = 0; $i < count($goal->places); $i++)
-        <div class="myPlan-body">
-            <div class="myPlan-place ml-5">{{ $goal->places[$i]->content }}</div>
+        <div class="list-group-item list-group-item-action">
+            @if($i===0)
             <div class="myPlan-time ml-3">{{ $goal->times[$i]->time }}</div>
+            @elseif($i == count($goal->places)-1)
+            <div class="myPlan-time ml-3">{{ $goal->times[$i*2-1]->time }}</div>
+            @else
+            <div class="myPlan-time ml-3">{{ $goal->times[$i*2-1]->time }}</div>
+            <div class="myPlan-time ml-3">{{ $goal->times[$i*2]->time }}</div>
+            @endif
+            <div class="myPlan-place ml-5">{{ $goal->places[$i]->content }}</div>
         </div>
-        <div class="myPlan-memo">
+        <div>
+
             {!! nl2br(e($goal->places[$i]->memo->content)) !!}
             <br>
             @if($i != count($goal->places) - 1)
@@ -50,6 +60,7 @@
         </div>
     @endfor
 </div>
+
 
 @if (count($errors) > 0)
     @foreach ($errors as $error)
@@ -62,53 +73,5 @@
 
 @section('css')
 <style>
-    .myPlan-header {
-        display: flex;
-    }
-
-    .myPlan-body {
-        display: flex;
-        position: relative;
-    }
-
-    .myPlan-body:before {
-        content: "";
-        width: 1em;
-        height: 1em;
-        border-radius: 50%;
-        background: black;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-    }
-
-    .myPlan-memo {
-        min-height: 20px;
-        padding: 20px 0 20px 20px;
-        position: relative;
-        
-    }
-
-    .myPlan-memo:last-child:before {
-        display:none;
-    }
-
-    .myPlan-memo:before {
-
-        content: "";
-        width: 1px;
-        height: 110%;
-        background: black;
-        position: absolute;
-        top: 50%;
-        left: 7px;
-        transform: translateY(-50%);
-    }
-
-
-
-
-
 </style>
 @stop

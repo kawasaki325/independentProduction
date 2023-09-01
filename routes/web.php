@@ -36,6 +36,9 @@ Route::prefix('/plans')->group(function() {
     Route::get('/create', App\Http\Controllers\Plan\CreateController::class)->name('create');
     Route::post('/store', App\Http\Controllers\Plan\StoreController::class)->name('store');
 
+    // 検索機能
+    Route::get('/search', App\Http\Controllers\Plan\SearchController::class)->name('search');
+
     // 登録したものを編集
     Route::get('/update/{plan}', App\Http\Controllers\Plan\update\IndexController::class)->name('update/{plan}');
     Route::get('/update/create/{plan}', App\Http\Controllers\Plan\update\CreateController::class)->name('update/create/{plan}');
@@ -49,7 +52,8 @@ Route::prefix('/plans')->group(function() {
     Route::get('/share', App\Http\Controllers\Plan\share\IndexController::class)->name('share');
     Route::get('/share/detail/{plan}', App\Http\Controllers\Plan\share\PlanDetailController::class)->name('share/detail/{plan}');
 
-
+    // いいねした投稿を表示
+    Route::get('/like', App\Http\Controllers\Plan\share\LikeIndexController::class)->name('like');
 
     // 投稿がいいねされたとき
     Route::post('/share/like', App\Http\Controllers\Plan\share\LikeController::class)->name('share/like');
