@@ -20,58 +20,51 @@
 @csrf
     <div id="js-plan" data-plan-id="1">
         <div>
-            <label for="goal">プランの名前</label>
-            <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}">
-            <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
-        </div>
-        <div class="input-area">
-            <div class="input-items">
-                <div class="input-item">
-                    <label for="place">経由地</label>
-                    <input type="text" class="form-control" id="place" name="place[0]" placeholder="経由地">
-                </div>
-                <div class="input-item">
-                    <label for="time">時間</label>
+            <div class="d-flex p-3 bg-white align-items-center">
+                <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}">
+                <input type="date" class="form-control w-25" id="date" name="date" value="{{ old('date') }}">
+            </div>
+
+            
+            <div class="list-group-item list-group-item-action d-flex align-items-center">
+                <div>
                     <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間">
                 </div>
-                <div class="input-item is-row">
-                    <label for="memo">メモ</label>
-                    <textarea name="memo[0]" id="memo" placeholder="メモ"></textarea>
+                <div>
+                    <input type="text" class="form-control" id="place" name="place[0]" placeholder="出発">
                 </div>
+                <textarea class="w-100" name="memo[0]" id="memo" placeholder="メモ"></textarea>
             </div>
         </div>
 
-        <div class="input-area add-point">
-            <div class="input-items">
-                <div class="input-item">
-                    <label for="place">経由地</label>
-                    <input type="text" class="form-control" id="placeNext" name="place[1]" placeholder="経由地">
-                </div>
-                <div class="input-item">
-                    <label for="time">時間</label>
+        <div class="add-point">
+            <div class="list-group-item list-group-item-action d-flex justify-content-end align-items-center">
+                <div>移動費：</div>
+                <input type="number" class="form-control w-25" id="price" name="price[0]" value="0">
+                <div class="mr-5">円</div>
+
+                移動手段：
+                <select name="transportation[0]" id="transportation">
+                    <option value="車">車</option>
+                    <option value="タクシー">タクシー</option>
+                    <option value="電車">電車</option>
+                    <option value="新幹線">新幹線</option>
+                    <option value="徒歩">徒歩</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+    
+            <div class="list-group-item list-group-item-action d-flex align-items-center">
+                <div>
                     <input type="time" class="form-control" id="timeNext" name="time[1]" placeholder="時間">
                 </div>
-                <div class="input-item">
-                    <label for="price">金額</label>
-                    <input type="number" class="form-control" id="price" name="price[0]" value="0">
+                <div>
+                    <input type="text" class="form-control" id="placeNext" name="place[1]" placeholder="目的地">
                 </div>
-                <div class="input-item">
-                    <label for="transportation">移動手段</label>
-                    <select name="transportation[0]" id="transportation">
-                        <option value="車">車</option>
-                        <option value="タクシー">タクシー</option>
-                        <option value="電車">電車</option>
-                        <option value="新幹線">新幹線</option>
-                        <option value="徒歩">徒歩</option>
-                        <option value="その他">その他</option>
-                    </select>
-                </div>
-                <div class="input-item is-row">
-                    <label for="memo">メモ</label>
-                    <textarea name="memo[1]" id="memoNext" placeholder="メモ"></textarea>
-                </div>
+                <textarea class="w-100" name="memo[1]" id="memoNext" placeholder="メモ"></textarea>
             </div>
         </div>
+
     </div>
 
     <div>
@@ -111,9 +104,7 @@
 
 @section('css')
 <style>
-    .create-form {
-        width: 50%;
-    }
+
 
     .input-items {
         display: flex;
