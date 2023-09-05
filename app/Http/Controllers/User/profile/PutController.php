@@ -21,7 +21,7 @@ class PutController extends Controller
         $this->validate($request, [
             'name' => 'required|max:10',
             'email' => 'required|email',
-            'password' => 'required|min:4|max:12|confirmed',
+            'password' => 'required|min:8|max:12|confirmed',
             'password_confirmation' => 'required',
         ]);
 

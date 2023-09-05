@@ -37,7 +37,7 @@
                                 <img src="{{ asset('storage/images/test.jpg') }}" class="card-img-top" alt="...">
                                 <div class="card-body text-center">
                                     <h5 class="card-text">{{ $goal->content }}</h5>
-                                    <p class="card-text mb-1">{{ $goal->totalPrice }}</p>
+                                    <p class="card-text mb-1">移動費：{{ $goal->totalPrice }}円</p>
                                     <p class="card-text">{{ $goal->user->name }}さんの投稿</p>
                                 </div>
                             </div>

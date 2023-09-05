@@ -250,6 +250,12 @@ return [
             'url' => 'users',
             'icon' => 'fas fa-plane',
         ],
+        [
+            'text' => 'ユーザー管理',
+            'url' => 'users/admin',
+            'icon' => 'fas fa-plane',
+            'key'  => 'user_admin_only',
+        ],
 
 
         // AdminLTEデフォルト
