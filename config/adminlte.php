@@ -226,23 +226,28 @@ return [
 
     'menu' => [
         [
-            'text' => '商品一覧',
-            'url'  => 'items',
+            'text' => 'ホーム',
+            'url'  => 'plans',
             'icon' => 'fas fa-gamepad',
         ],
         [
-            'text' => '行先登録',
-            'url' => 'plans',
+            'text' => '旅行プランを作る',
+            'url' => 'plans/create',
             'icon' => 'fas fa-plane',
         ],
         [
-            'text' => '共有',
+            'text' => '投稿一覧',
             'url' => 'plans/share',
             'icon' => 'fas fa-plane',
         ],
         [
-            'text' => 'いいねした投稿',
+            'text' => 'お気に入りの投稿',
             'url' => 'plans/like',
+            'icon' => 'fas fa-plane',
+        ],
+        [
+            'text' => 'プロフィール編集',
+            'url' => 'users',
             'icon' => 'fas fa-plane',
         ],
 

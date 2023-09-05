@@ -110,7 +110,7 @@
 </div>
 
 <div class="d-flex mt-3 align-items-center">
-    <button class="btn btn-primary ml-2"><a href="{{ route('share') }}" class="text-decoration-none text-white">戻る</a></button>
+    <button class="btn btn-primary ml-2"><a href="{{ route('like') }}" class="text-decoration-none text-white">戻る</a></button>
 
     @if(!($goal->user->id === $user->id))
         <div class="d-flex ml-5 align-items-center">
@@ -120,8 +120,9 @@
                     <div class="like"><i class="fas fa-thumbs-up" style="color: #007bff;"></i></div>
                 @else
                     <!-- いいね！していない場合 -->
-                    <div class="like is-opacity"><i class="fas fa-thumbs-up" style="color: #007bff;" ></i></div>
+                    <div class="noLike is-opacity"><i class="fas fa-thumbs-up" style="color: #007bff;" ></i></div>
                 @endif
+                
             </div>
             <div class="like-count js-like-count ml-1">{{ count($goal->likedByUsers) }}</div>
         </div>
@@ -149,6 +150,5 @@
     .js-like {
         cursor: pointer;
     }
-
 </style>
 @stop

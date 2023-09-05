@@ -3,12 +3,11 @@
 @section('title', '商品登録')
 
 @section('content_header')
-    <h1>プラン一覧</h1>
+
 @stop
 
 @section('content')
 
-<a href="{{ route('create') }}">行先登録</a>
 
 @if(session('feedback.success'))
     <p style="color: green;">{{ session('feedback.success') }}</p>
@@ -24,9 +23,9 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="{{ asset('storage/images/test.jpg') }}" class="card-img-top" alt="...">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title clear">{{ $goal->content }}</h5>
+                                    <h5 class="card-text">{{ $goal->content }}</h5>
                                     <p class="card-text mb-1">{{ $goal->date }}</p>
-                                    <p class="card-text">{{ $goal->totalPrice }}</p>
+                                    <p class="card-text">移動費：{{ $goal->totalPrice }}円</p>
                                 </div>
                             </div>
                         </a>
@@ -37,6 +36,8 @@
             @endforeach
         </div>
     </div>
+    @else
+        <p>作成したプランがありません</p>
     @endif
 </div>
 

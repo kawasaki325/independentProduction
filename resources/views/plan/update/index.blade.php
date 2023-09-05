@@ -3,28 +3,10 @@
 @section('title', '商品登録')
 
 @section('content_header')
-    <h1>プラン確認</h1>
+
 @stop
 
 @section('content')
-
-<a href="{{ route('update/create/{plan}', ['plan' => $goal->id]) }}">編集</a>
-<form action="{{ route('update/delete/{plan}', ['plan' => $goal->id]) }}" method="post">
-    @method('DELETE')
-    @csrf
-    <button type="submit" onclick='return confirm("本当に削除しますか？")'>削除</button>
-</form>
-
-<form action="{{ route('status/put/{plan}', ['plan' => $goal->id]) }}" method="post">
-    @method('PUT')
-    @csrf
-    @if($goal->status === 'normal')
-    <button type="submit" onclick='return confirm("本当に投稿しますか？")'>投稿する</button>
-    @else
-    <button type="submit" onclick='return confirm("本当に投稿を削除しますか？")'>投稿を削除する</button>
-    @endif
-</form>
-
 
 
 @if(session('feedback.success'))
@@ -59,7 +41,9 @@
             @endif
             <div class="myPlan-place ml-5">{{ $goal->places[$i]->content }}</div>
 
-            <button type="button" class="btn btn-outline-secondary js-detail ml-auto">移動詳細</button>
+            @if($i != count($goal->places)-1 || $goal->places[$i]->memo->content !== null)
+                <button type="button" class="btn btn-outline-secondary js-detail ml-auto">移動詳細</button>
+            @endif
 
         </div>
         @if($i != count($goal->places) - 1)
@@ -77,6 +61,8 @@
                                 <i class="fas fa-train"></i>
                             @elseif($goal->prices[$i]->transportation->transportation === '徒歩')
                                 <i class="fas fa-walking"></i>
+                            @elseif($goal->prices[$i]->transportation->transportation === 'その他')
+                                <i class="fas fa-otter"></i>
                             @elseif($goal->prices[$i]->transportation->transportation === '新幹線')
                                 <div><img src="{{ asset('img/train.svg') }}" alt="" style = "width: 14px;"></div>
                             @else
@@ -111,29 +97,33 @@
                         <div><i class="fas fa-coins"></i></div>
                         <div class="ml-3">{{ $goal->prices[$i]->amount }}円</div>
                     </div>
-                    <div class="w-50 ml-5">
-                        <div>メモ</div>
-                        <div class="border">
-                            <div class="w-100 text-break">
-                                {!! nl2br(e($goal->places[$i]->memo->content)) !!}
+                    @if( $goal->places[$i]->memo->content !== null)
+                        <div class="w-50 ml-5">
+                            <div>メモ</div>
+                            <div class="border">
+                                <div class="w-100 text-break">
+                                    {!! nl2br(e($goal->places[$i]->memo->content)) !!}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         @else
-            <div class="js-content" style="display: none;">
-                <div class="list-group-item list-group-item-action d-flex align-items-center">
-                    <div class="w-50 ml-5">
-                        <div>メモ</div>
-                        <div class="border">
-                            <div class="w-100 text-break">
-                                {!! nl2br(e($goal->places[$i]->memo->content)) !!}
+            @if( $goal->places[$i]->memo->content !== null)
+                <div class="js-content" style="display: none;">
+                    <div class="list-group-item list-group-item-action d-flex align-items-center">
+                        <div class="w-50 ml-5">
+                            <div>メモ</div>
+                            <div class="border">
+                                <div class="w-100 text-break">
+                                    {!! nl2br(e($goal->places[$i]->memo->content)) !!}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         @endif
     @endfor
 </div>
@@ -143,6 +133,26 @@
         移動費合計：{{ $goal->totalPrice }} 円
     </div>
 </div>
+
+<div class="d-flex mt-3">
+    <button class="btn btn-primary ml-2"><a href="{{ route('home') }}" class="text-decoration-none text-white">戻る</a></button>
+    <button class="btn btn-primary ml-2"><a href="{{ route('update/create/{plan}', ['plan' => $goal->id]) }}" class="text-decoration-none text-white">編集</a></button>
+    <form action="{{ route('update/delete/{plan}', ['plan' => $goal->id]) }}" method="post">
+        @method('DELETE')
+        @csrf
+        <button class="btn btn-primary ml-2" type="submit" onclick='return confirm("本当に削除しますか？")'>削除</button>
+    </form>
+    <form action="{{ route('status/put/{plan}', ['plan' => $goal->id]) }}" method="post">
+        @method('PUT')
+        @csrf
+        @if($goal->status === 'normal')
+        <button class="btn btn-primary ml-2" type="submit" onclick='return confirm("本当に投稿しますか？")'>投稿する</button>
+        @else
+        <button class="btn btn-primary ml-2" type="submit" onclick='return confirm("本当に投稿を削除しますか？")'>投稿を削除する</button>
+        @endif
+    </form>
+</div>
+
 
 
 @if (count($errors) > 0)

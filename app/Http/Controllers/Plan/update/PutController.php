@@ -10,6 +10,7 @@ use App\Models\Place;
 use App\Models\Memo;
 use App\Models\Time;
 use App\Models\Price;
+use App\Models\Transportation;
 
 class PutController extends Controller
 {
@@ -30,6 +31,8 @@ class PutController extends Controller
             'memo.*' => 'nullable',
             'time' => 'required|array|min:2',
             'time.*' => 'required',
+            'transportation' => 'required|array|min:1',
+            'transportation.*' => 'required',
             'price' => 'required|array|min:2',
             'price.*' => 'required',
         ]);
@@ -37,12 +40,23 @@ class PutController extends Controller
         // priceの合計を計算する為の変数
         $totalPrice = 0;
 
+        // transportationのデータを編集するための変数
+        $price_id = [];
+
         // priceのデータを変更
         $prices = Price::where('goal_id', $request->goal_id)->get();
         for($i=0; $i < count($prices); $i++) {
             $prices[$i]->amount = $request->price[$i];
             $prices[$i]->save();
             $totalPrice += $request->price[$i];
+            $price_id[] = $prices[$i]->transportation->price_id;
+        }
+
+        // transportationのデータを変更
+        for($i=0; $i < count($price_id); $i++) {
+            $transportations = Transportation::where('price_id', $price_id[$i])->firstOrFail();
+            $transportations->transportation = $request->transportation[$i];
+            $transportations->save();
         }
 
         // goalのデータを変更

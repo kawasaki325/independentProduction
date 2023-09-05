@@ -21,13 +21,6 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('items')->group(function () {
-    Route::get('/', [App\Http\Controllers\ItemController::class, 'index']);
-    Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
-    Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
-    Route::delete('/delete/{itemId}', [App\Http\Controllers\ItemController::class, 'delete'])->name('/delete/{itemId}');
-});
-
 
 // 行先登録のルート
 Route::prefix('/plans')->group(function() {
@@ -54,9 +47,19 @@ Route::prefix('/plans')->group(function() {
 
     // いいねした投稿を表示
     Route::get('/like', App\Http\Controllers\Plan\share\LikeIndexController::class)->name('like');
+    Route::get('/like/detail/{plan}', App\Http\Controllers\Plan\share\LikeDetailController::class)->name('like/detail/{plan}');
 
     // 投稿がいいねされたとき
     Route::post('/share/like', App\Http\Controllers\Plan\share\LikeController::class)->name('share/like');
+});
+
+
+// 行先登録のルート
+Route::prefix('/users')->group(function() {
+    // プロフィール編集
+    Route::get('/', App\Http\Controllers\User\profile\IndexController::class)->name('user');
+    Route::get('/create', App\Http\Controllers\User\profile\CreateController::class)->name('user/create');
+    Route::put('/put/{user_id}', App\Http\Controllers\User\profile\PutController::class)->name('user/put/{user_id}');
 });
 
 

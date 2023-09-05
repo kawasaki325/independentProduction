@@ -9,17 +9,26 @@
 @section('content')
 
 
-<div class="myPlan">
+<div>
     @if(!(count($goals) === 0))
-        @foreach($goals as $goal)
-            <a href="{{ route('share/detail/{plan}', ['plan' => $goal->id]) }}" class="myPlan-item">
-                <div class="myPlan-header">
-                    <div class="myPlan-title">{{ $goal->content }}</div>
-                    <div class="myPlan-date">{{ $goal->date }}</div>
-                    <div class="myPlan-date">{{ $goal->totalPrice }}</div>
-                </div>
-            </a>
-        @endforeach
+    <div class="container">
+        <div class="row row-md-1 row-.col-xl-2 row-cols-xxl-3">
+            @foreach($goals as $goal)
+                    <div class="col mb-4">
+                        <a href="{{ route('like/detail/{plan}', ['plan' => $goal->id]) }}" class="text-dark">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ asset('storage/images/test.jpg') }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                    <h5 class="card-text">{{ $goal->content }}</h5>
+                                    <p class="card-text mb-1">移動費：{{ $goal->totalPrice }}円</p>
+                                    <p class="card-text">{{ $goal->user->name }}さんの投稿</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            @endforeach
+        </div>
+    </div>
     @endif
 </div>
 

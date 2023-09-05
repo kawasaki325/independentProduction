@@ -3,7 +3,7 @@
 @section('title', '商品登録')
 
 @section('content_header')
-    <h1>みんなのプラン</h1>
+    
 @stop
 
 @section('content')
@@ -36,9 +36,9 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="{{ asset('storage/images/test.jpg') }}" class="card-img-top" alt="...">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title clear">{{ $goal->content }}</h5>
-                                    <p class="card-text mb-1">{{ $goal->date }}</p>
-                                    <p class="card-text">{{ $goal->totalPrice }}</p>
+                                    <h5 class="card-text">{{ $goal->content }}</h5>
+                                    <p class="card-text mb-1">{{ $goal->totalPrice }}</p>
+                                    <p class="card-text">{{ $goal->user->name }}さんの投稿</p>
                                 </div>
                             </div>
                         </a>

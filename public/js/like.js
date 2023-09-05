@@ -30,7 +30,7 @@ $(function(){
 
                 // いいね！ボタンの色をグレーに変更
                 // $(this).find('img').attr('src', '../img/img/icon-heart.svg');
-                $(this).find('button').html('いいねする');
+                $(this).find('.like').addClass("is-opacity");
             })
             .fail((data) => {
                 alert('処理中にエラーが発生しました。');
@@ -59,7 +59,7 @@ $(function(){
                 this_obj.data('like-id', 1);
 
                 // いいね！ボタンの色を青に変更
-                $(this).find('button').html('いいねを外す');
+                $(this).find('.like').removeClass("is-opacity");
             })
             .fail((data) => {
                 alert('処理中にエラーが発生しました。');

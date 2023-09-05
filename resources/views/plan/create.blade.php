@@ -4,10 +4,11 @@
 
 
 @section('content')
-
-<button class="btn btn-primary js-addPlace">行先を追加</button>
-
-<button class="btn btn-primary js-deletePlace">行先を削除</button>
+<div class="my-3">
+    <button class="btn btn-primary js-addPlace">経由地を追加</button>
+    
+    <button class="btn btn-primary js-deletePlace">追加した経由地を削除</button>
+</div>
 
 @if (count($errors) > 0)
     @foreach ($errors as $error)
@@ -21,11 +22,10 @@
     <div id="js-plan" data-plan-id="1">
         <div>
             <div class="d-flex p-3 bg-white align-items-center">
-                <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}">
+                <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}" autofocus>
                 <input type="date" class="form-control w-25" id="date" name="date" value="{{ old('date') }}">
             </div>
 
-            
             <div class="list-group-item list-group-item-action d-flex align-items-center">
                 <div>
                     <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間">
@@ -112,3 +112,6 @@
 
 </style>
 @stop
+
+
+
