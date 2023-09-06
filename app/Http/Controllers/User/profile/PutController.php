@@ -28,7 +28,6 @@ class PutController extends Controller
         $user_id = $request->route('user_id');
         // パスワードをハッシュ値に変換してユーザー登録
         $password = Hash::make($request->password);
-        
         $user = User::where('id', $user_id)->firstOrFail();
         $user->name = $request->name;
         $user->email = $request->email;

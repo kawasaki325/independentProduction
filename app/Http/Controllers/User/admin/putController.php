@@ -17,7 +17,12 @@ class PutController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $user_id = $request->route('user_id');
+        $this->validate($request, [
+            'user_id' => 'required',
+        ]);
+
+
+        $user_id = $request->user_id;
         $user = User::where('id', $user_id)->firstOrFail();
         if($user->role_id === 1) {
             $user->role_id = 0;

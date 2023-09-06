@@ -34,9 +34,10 @@
             @if($user->id === auth()->id())
                 <div><i class="fas fa-user-check" style="color: #007bff;"></i></div>
             @else
-                <form action="{{ route('admin/put/{user_id}', ['user_id' => $user->id]) }}" method="post">
+                <form action="{{ route('admin/put') }}" method="post">
                     @method('PUT')
                     @csrf
+                    <input type="hidden" name="user_id" value="{{$user->id}}">
                     <label class="admin">
                         <button type="submit" class="admin-btn"  onclick='return confirm("ID:{{ $user->id }}の管理者権限を変更しますか？")'></button>
                         @if($user->role_id === 1)
