@@ -3,7 +3,7 @@
 @section('title', '商品登録')
 
 @section('content_header')
-    <h1>いいねしたプラン</h1>
+    
 @stop
 
 @section('content')

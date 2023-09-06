@@ -24,7 +24,7 @@ class SearchController extends Controller
         // 検索機能
 
         $this->validate($request, [
-            'keyword' => 'required|max:255',
+            'keyword' => 'max:255',
         ]);
 
         $user_id = $request->user()->id;
@@ -34,20 +34,47 @@ class SearchController extends Controller
         $keywords = preg_split('/[\s]+/', $keyword);
         $escape_keywords=[];
 
+        $price = 5000;
+
         foreach($keywords as $keyword) {
-            $escape_keywords[] = '%' . $keyword . '%';
+            $escape_keywords[] = $keyword ;
         }
 
-        $goals = Goal::where(function ($q) use ($escape_keywords) {
-            foreach($escape_keywords as $keyword) {
-                $q ->orwhere('content', 'like', $keyword)
-                ->orwhereHas('places', function ($query) use ($keyword) {
-                    $query->where('content', $keyword);
+        // キーワードが含まれるデータを検索
+        if($request->keyword !== null){
+
+            $goalsA = Goal::where('status', 'active')
+            ->where(function ($subQuery) use ($escape_keywords) {
+                    foreach ($escape_keywords as $keyword) {
+                        $subQuery->orWhere('content', 'like', '%' . $keyword . '%');
+                    }
                 })
-                ->where('status', 'active');
-            }
-        })
-        ->get();
+            ->get();
+    
+            $goalsB = Goal::whereHas('places', function ($query) use ($escape_keywords) {
+                $query->where(function ($placeQuery) use ($escape_keywords) {
+                    foreach ($escape_keywords as $keyword) {
+                        $placeQuery->orWhere('content', 'like', '%' . $keyword . '%');
+                    }
+                });
+            })
+            ->where('status', 'active')
+            ->get();
+                
+    
+             // $goalsAと$goalsBを結合
+            $goalC = $goalsA->concat($goalsB);
+            $goalD = $goalC->unique('id');
+            $goals = $goalD->sortBy('id');
+        } else {
+            $goals=Goal::where('status', 'active')->get();
+        }
+
+        if($request->price !== null) {
+            $goals = $goals->where('totalPrice', '<=', $price);
+        }
+        
+
 
         $keyword = $request->keyword;
 
