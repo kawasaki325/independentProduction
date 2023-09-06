@@ -25,7 +25,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 // 行先登録のルート
 Route::prefix('/plans')->group(function() {
     // 新規に登録
-    Route::get('/', App\Http\Controllers\Plan\IndexController::class)->name('home');
+    Route::get('/', App\Http\Controllers\Plan\IndexController::class)->name('/home');
     Route::get('/create', App\Http\Controllers\Plan\CreateController::class)->name('create');
     Route::post('/store', App\Http\Controllers\Plan\StoreController::class)->name('store');
 
