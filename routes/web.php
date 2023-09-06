@@ -61,7 +61,7 @@ Route::prefix('/users')->group(function() {
     Route::get('/create', App\Http\Controllers\User\profile\CreateController::class)->name('user/create');
     Route::put('/put/{user_id}', App\Http\Controllers\User\profile\PutController::class)->name('user/put/{user_id}');
     Route::get('/admin', App\Http\Controllers\User\admin\IndexController::class)->name('admin');
-    Route::put('/admin/put', App\Http\Controllers\User\admin\PutController::class)->name('admin/put');
+    Route::put('/admin/put', App\Http\Controllers\User\admin\putController::class)->name('admin/put');
     Route::delete('/admin/delete/{user_id}', App\Http\Controllers\User\admin\DeleteController::class)->name('admin/delete/{user_id}');
 });
 
