@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 
-class putController extends Controller
+class PutController extends Controller
 {
     /**
      * Handle the incoming request.
