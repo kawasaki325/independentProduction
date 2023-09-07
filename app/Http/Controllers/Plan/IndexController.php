@@ -35,13 +35,11 @@ class IndexController extends Controller
 
 
         if($area !== null && $area !== '未選択') {
-            $url = "http://api.openweathermap.org/data/2.5/weather?q={$area}&appid=84fe9970e0b70d3248576b9eec7788d8";
+            $url = "http://api.openweathermap.org/data/2.5/weather?q={$area}&appid=84fe9970e0b70d3248576b9eec7788d8&lang=ja&units=metric";
             $response = Http::get($url);
             
             $weather = $response['weather'][0]['main'];
-            $temp = $response['main']['temp'] - 273.15;
-
-            
+            $temp = $response['main']['temp'];
     
             switch ($weather){
                 case 'Clouds':
