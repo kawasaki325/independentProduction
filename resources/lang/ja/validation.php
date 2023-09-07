@@ -135,11 +135,14 @@ return [
     ],
 
     'attributes' => [
-        'tweet' => 'つぶやき',
-        'nickname' => 'ニックネーム',
+        'goal' => 'プラン名',
+        'date' => '日にち',
+        'place.*' => '場所',
+        'time.*' => '時間',
         'name' => 'ユーザー名',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'area' => '出発する県名',
     ],
 
 ];

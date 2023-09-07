@@ -1,6 +1,5 @@
 <?php 
 return array(
-    "未選択" => "現在の天気を検索できます",
     "hokkaido" => "北海道",
     "aomori" => "青森",
     "iwate" => "岩手",

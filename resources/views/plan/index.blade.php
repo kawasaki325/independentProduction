@@ -17,6 +17,7 @@
     <!-- 検索エリア・ -->
     <div class="d-flex align-items-center mb-2 pt-3">
             <select type="text" class="form-control w-25 mr-2" name="area">
+                    <option value="未選択">現在の天気を検索できます</option>
                 @foreach(config('prefectures') as $key => $prefecture)
                     <option value="{{ $key }}">{{ $prefecture }}</option>
                 @endforeach

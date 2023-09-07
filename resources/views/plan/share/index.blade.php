@@ -46,6 +46,7 @@
 
             <div>
                 <select type="text" class="form-control mt-4 w-50 mx-auto" name="area">
+                        <option value="未選択">未選択</option>
                     @foreach(config('prefectures') as $key => $prefecture)
                         <option value="{{ $prefecture }}">{{ $prefecture }}</option>
                     @endforeach

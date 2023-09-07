@@ -33,7 +33,7 @@ class PutController extends Controller
             'time.*' => 'required',
             'transportation' => 'required|array|min:1',
             'transportation.*' => 'required',
-            'price' => 'required|array|min:2',
+            'price' => 'required|array',
             'price.*' => 'required',
         ]);
 

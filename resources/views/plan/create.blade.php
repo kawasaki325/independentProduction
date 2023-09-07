@@ -10,12 +10,24 @@
     <button class="btn btn-primary js-deletePlace">追加した経由地を削除</button>
 </div>
 
+
+@php
+$message = null;
+@endphp
+
 @if (count($errors) > 0)
+<ul>
     @foreach ($errors as $error)
-        {{ $error[0] }}
-        <br>
+    @if($error[0] != $message)
+            <li>{{ $error[0] }}</li>
+        @endif
+        @php
+        $message = $error[0];
+        @endphp
     @endforeach
+</ul>
 @endif
+
 
 <form  class="create-form" action="{{ route('store') }}" method="post">
 @csrf
@@ -24,6 +36,7 @@
             <div class="d-flex p-3 bg-white align-items-center">
                 <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}" autofocus>
                 <select type="text" class="form-control w-25" name="area">
+                        <option value="">出発地する県名</option>
                     @foreach(config('prefectures') as $key => $prefecture)
                         <option value="{{ $prefecture }}">{{ $prefecture }}</option>
                     @endforeach

@@ -30,6 +30,7 @@ class StoreController extends Controller
             'date' => 'required',
             'place' => 'required|array|min:2',
             'place.*' => 'required',
+            'area' => 'required',
             'memo' => 'required|array|min:2',
             'memo.*' => 'nullable',
             'time' => 'required|array|min:2',

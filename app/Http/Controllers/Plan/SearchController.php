@@ -50,6 +50,7 @@ class SearchController extends Controller
                     }
                 })
             ->get();
+
     
             $goalsB = Goal::whereHas('places', function ($query) use ($escape_keywords) {
                 $query->where(function ($placeQuery) use ($escape_keywords) {
@@ -66,10 +67,12 @@ class SearchController extends Controller
              // $goalsAと$goalsBを結合
             $goalC = $goalsA->concat($goalsB);
             $goalD = $goalC->unique('id');
-            $goals = $goalD->sortBy('id');
+            $goals = $goalD->sortBy('updated_at');
+
         } else {
             $goals=Goal::where('status', 'active')->get();
         }
+        
 
         if($price == 1500) {
             $goals = $goals->where('totalPrice', '<=', $price);
@@ -85,7 +88,8 @@ class SearchController extends Controller
             $goals = $goals;
         }
 
-        if($area !== '未選択') {
+
+        if($area != '未選択' && $area != null) {
             $goals = $goals->where('start', $area);
         }
 

@@ -22,7 +22,10 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
         //投稿されたプラン一覧を取得
-        $goals = Goal::where('status', 'active')->get();
+        $goals = Goal::where('status', 'active')
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
 
         return view('plan.share.index' , [
             'goals' => $goals,

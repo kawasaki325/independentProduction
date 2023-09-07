@@ -5,12 +5,19 @@
 
 @section('content')
 
-<!-- <button class="btn btn-primary js-addPlace">行先を追加</button>
-<button class="btn btn-primary js-deletePlace">行先を削除</button> -->
+@php
+$message = null;
+@endphp
+
 @if (count($errors) > 0)
     <ul>
         @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            @if($error != $message)
+                <li>{{ $error }}</li>
+            @endif
+            @php
+            $message = $error;
+            @endphp
         @endforeach
     </ul>
 @endif
