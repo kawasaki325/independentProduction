@@ -135,7 +135,7 @@
 </div>
 
 <div class="d-flex mt-3">
-    <button class="btn btn-primary ml-2"><a href="{{ route('home') }}" class="text-decoration-none text-white">戻る</a></button>
+    <button class="btn btn-primary ml-2"><a href="{{ route('/home') }}" class="text-decoration-none text-white">戻る</a></button>
     <button class="btn btn-primary ml-2"><a href="{{ route('update/create/{plan}', ['plan' => $goal->id]) }}" class="text-decoration-none text-white">編集</a></button>
     <form action="{{ route('update/delete/{plan}', ['plan' => $goal->id]) }}" method="post">
         @method('DELETE')

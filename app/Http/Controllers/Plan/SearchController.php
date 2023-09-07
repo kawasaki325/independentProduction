@@ -22,24 +22,24 @@ class SearchController extends Controller
     public function __invoke(Request $request)
     {
         // 検索機能
-
         $this->validate($request, [
             'keyword' => 'max:255',
         ]);
-
         $user_id = $request->user()->id;
         $user = User::where('id' , $user_id)->firstOrFail();
-
+        
         $keyword = mb_convert_kana($request->keyword, 's');
         $keywords = preg_split('/[\s]+/', $keyword);
         $escape_keywords=[];
+        
+        $price = $request->price;
 
-        $price = 5000;
-
+        $area = $request->area;
+        
         foreach($keywords as $keyword) {
             $escape_keywords[] = $keyword ;
         }
-
+        
         // キーワードが含まれるデータを検索
         if($request->keyword !== null){
 
@@ -60,6 +60,7 @@ class SearchController extends Controller
             })
             ->where('status', 'active')
             ->get();
+
                 
     
              // $goalsAと$goalsBを結合
@@ -70,10 +71,23 @@ class SearchController extends Controller
             $goals=Goal::where('status', 'active')->get();
         }
 
-        if($request->price !== null) {
+        if($price == 1500) {
             $goals = $goals->where('totalPrice', '<=', $price);
+        } elseif($price == 5000) {
+            $goals = $goals->where('totalPrice', '<=', $price)
+            ->where('totalPrice', '>=', 1501);
+        } elseif($price == 10000) {
+            $goals = $goals->where('totalPrice', '<=', $price)
+            ->where('totalPrice', '>=', 5001);
+        } elseif($price == 10001) {
+            $goals = $goals->where('totalPrice', '>', $price);
+        } else {
+            $goals = $goals;
         }
-        
+
+        if($area !== '未選択') {
+            $goals = $goals->where('start', $area);
+        }
 
 
         $keyword = $request->keyword;

@@ -13,6 +13,24 @@
     <p style="color: green;">{{ session('feedback.success') }}</p>
 @endif
 
+<form action="{{ route('/home') }}" method="get">
+    <!-- 検索エリア・ -->
+    <div class="d-flex align-items-center mb-2 pt-3">
+            <select type="text" class="form-control w-25 mr-2" name="area">
+                @foreach(config('prefectures') as $key => $prefecture)
+                    <option value="{{ $key }}">{{ $prefecture }}</option>
+                @endforeach
+            </select>
+            <button type="submit">検索</button>
+    </div>
+</form>
+
+@if($temp != null)
+    {{config('prefectures')[ $area ]}}の今の天気
+    <img src="{{$img}}" alt="天気の画像">
+    {{$temp}}度
+@endif
+
 <div>
     @if(!(count($goals) === 0))
     <div class="container">
@@ -44,4 +62,7 @@
 @stop
 
 @section('css')
+<style>
+
+</style>
 @stop

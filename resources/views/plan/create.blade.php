@@ -23,6 +23,11 @@
         <div>
             <div class="d-flex p-3 bg-white align-items-center">
                 <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}" autofocus>
+                <select type="text" class="form-control w-25" name="area">
+                    @foreach(config('prefectures') as $key => $prefecture)
+                        <option value="{{ $prefecture }}">{{ $prefecture }}</option>
+                    @endforeach
+                </select>
                 <input type="date" class="form-control w-25" id="date" name="date" value="{{ old('date') }}">
             </div>
 

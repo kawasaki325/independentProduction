@@ -74,5 +74,9 @@
             left: 0;
             opacity: 0;
         }
+
+        .admin {
+            cursor: pointer;
+        }
     </style>
 @stop

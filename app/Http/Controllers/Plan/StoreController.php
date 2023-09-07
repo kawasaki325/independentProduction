@@ -81,6 +81,7 @@ class StoreController extends Controller
         $goal->content = $request->goal;
         $goal->date = $request->date;
         $goal->totalPrice = $totalPrice;
+        $goal->start = $request->area;
         $goal->save();
 
         // 登録したgoalテーブルのidを取得

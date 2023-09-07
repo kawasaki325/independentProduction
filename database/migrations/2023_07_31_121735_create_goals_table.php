@@ -20,6 +20,7 @@ class CreateGoalsTable extends Migration
             $table->date('date');
             $table->string('status')->default('normal');
             $table->decimal('totalPrice', 10,0)->default(0);
+            $table->string('start')->nullable();
             $table->timestamps();
         });
     }

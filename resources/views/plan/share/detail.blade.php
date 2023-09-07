@@ -110,7 +110,7 @@
 </div>
 
 <div class="d-flex mt-3 align-items-center">
-    <button class="btn btn-primary ml-2"><a href="{{ route('share') }}" class="text-decoration-none text-white">戻る</a></button>
+    <button class="btn btn-primary ml-2" onClick="history.back();">戻る</button>
 
     @if(!($goal->user->id === $user->id))
         <div class="d-flex ml-5 align-items-center">
