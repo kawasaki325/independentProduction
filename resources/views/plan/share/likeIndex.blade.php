@@ -12,11 +12,11 @@
 <div>
     @if(!(count($goals) === 0))
     <div class="container">
-        <div class="row row-md-1 row-.col-xl-2 row-cols-xxl-3">
+        <div class="row row-md-1">
             @foreach($goals as $goal)
-                    <div class="col mb-4">
+                    <div class="col-md-4 col-sm-6 mb-4">
                         <a href="{{ route('like/detail/{plan}', ['plan' => $goal->id]) }}" class="text-dark">
-                            <div class="card" style="width: 18rem;">
+                            <div class="card mx-auto" style="width: 18rem;">
                                 <img src="{{ asset('storage/images/test.jpg') }}" class="card-img-top" alt="...">
                                 <div class="card-body text-center">
                                     <h5 class="card-text">{{ $goal->content }}</h5>
