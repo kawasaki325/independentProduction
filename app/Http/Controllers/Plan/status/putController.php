@@ -37,7 +37,7 @@ class putController extends Controller
         }
 
         return redirect()
-            ->route('share')
+            ->route('/home')
             ->with('feedback.success', $message);
     }
 }

@@ -26,6 +26,7 @@ class SearchController extends Controller
             'keyword' => 'max:255',
         ]);
         $user_id = $request->user()->id;
+
         $user = User::where('id' , $user_id)->firstOrFail();
         
         $keyword = mb_convert_kana($request->keyword, 's');
