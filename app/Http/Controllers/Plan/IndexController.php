@@ -28,7 +28,8 @@ class IndexController extends Controller
         $user_id = $request->user()->id;
         $goals = Goal::with(['places.memo', 'times', 'prices.transportation'])
              ->where('user_id', $user_id)
-             ->paginate(9);
+             ->paginate(6);
+
         
         // requestからエリアを取得
         $area = $request->area;
@@ -68,7 +69,7 @@ class IndexController extends Controller
                 default:
                     $img = 'http://openweathermap.org/img/w/01n.png';
             }
-        } 
+        }
 
 
         return view('plan.index' , [

@@ -55,6 +55,9 @@
             @endforeach
         </div>
     </div>
+    <div class="d-flex justify-content-center">
+        {{ $goals->links() }}
+    </div>
 
     @else
         <p>作成したプランがありません</p>

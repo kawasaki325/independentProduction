@@ -16,7 +16,7 @@
             @foreach($goals as $goal)
                     <div class="col-md-4 col-sm-6 mb-4">
                         <a href="{{ route('like/detail/{plan}', ['plan' => $goal->id]) }}" class="text-dark">
-                            <div class="card mx-auto" style="width: 18rem;">
+                            <div class="card mx-auto" style="width: 14rem;">
                                 <img src="{{ asset('storage/images/test.jpg') }}" class="card-img-top" alt="...">
                                 <div class="card-body text-center">
                                     <h5 class="card-text">{{ $goal->content }}</h5>
@@ -28,6 +28,9 @@
                     </div>
             @endforeach
         </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        {{ $goals->links() }}
     </div>
     @endif
 </div>

@@ -26,7 +26,7 @@ class IndexController extends Controller
         $goals = Goal::where('status', 'active')
         ->with(['places.memo', 'times', 'prices.transportation'])
         ->orderBy('updated_at', 'desc')
-        ->paginate(9);
+        ->paginate(6);
 
 
 

@@ -24,7 +24,7 @@ class LikeIndexController extends Controller
 
         $goals = Goal::whereHas('likedByUsers', function ($query) use ($user_id) {
             $query->where('user_id', $user_id);
-        })->get();
+        })->paginate(6);
 
         return view('plan.share.likeIndex' , [
             'goals' => $goals,
