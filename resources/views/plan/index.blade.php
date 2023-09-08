@@ -40,7 +40,7 @@
             <div class="col-md-4 col-sm-6 mb-4">
                 <a href="{{ route('update/{plan}', ['plan' => $goal->id]) }}" class="text-dark">
                     <div class="card mx-auto" style="width: 14rem;">
-                        <img src="{{ asset('storage/images/test.jpg') }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('img/test.jpg') }}" class="card-img-top" alt="...">
                         <div class="card-body text-center">
                             <h5 class="card-text">{{ $goal->content }}</h5>
                             <p class="card-text mb-1">{{ $goal->date }}</p>
