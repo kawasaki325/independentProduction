@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => '商品管理',
+    'title' => '旅行プラン管理',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -50,7 +50,7 @@ return [
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => '商品管理',
+    'logo_img_alt' => '旅行プラン管理',
 
     /*
     |--------------------------------------------------------------------------
@@ -228,7 +228,7 @@ return [
         [
             'text' => 'ホーム',
             'url'  => 'plans',
-            'icon' => 'fas fa-gamepad',
+            'icon' => 'fas fa-home',
         ],
         [
             'text' => '旅行プランを作る',
@@ -238,22 +238,22 @@ return [
         [
             'text' => '投稿一覧',
             'url' => 'plans/share',
-            'icon' => 'fas fa-plane',
+            'icon' => 'fas fa-paper-plane',
         ],
         [
             'text' => 'お気に入りの投稿',
             'url' => 'plans/like',
-            'icon' => 'fas fa-plane',
+            'icon' => 'fas fa-thumbs-up',
         ],
         [
             'text' => 'プロフィール編集',
             'url' => 'users',
-            'icon' => 'fas fa-plane',
+            'icon' => 'fas fa-user',
         ],
         [
             'text' => 'ユーザー管理',
             'url' => 'users/admin',
-            'icon' => 'fas fa-plane',
+            'icon' => 'fas fa-users-cog',
             'key'  => 'user_admin_only',
         ],
 

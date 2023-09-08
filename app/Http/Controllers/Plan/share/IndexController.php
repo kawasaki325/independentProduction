@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Plan\share;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 use App\Models\Goal;
 use App\Models\Place;
@@ -23,8 +24,10 @@ class IndexController extends Controller
     {
         //投稿されたプラン一覧を取得
         $goals = Goal::where('status', 'active')
+        ->with(['places.memo', 'times', 'prices.transportation'])
         ->orderBy('updated_at', 'desc')
-        ->get();
+        ->paginate(9);
+
 
 
         return view('plan.share.index' , [

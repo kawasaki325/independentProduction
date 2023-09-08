@@ -26,7 +26,9 @@ class IndexController extends Controller
         
         //ユーザーの登録したプラン一覧を取得
         $user_id = $request->user()->id;
-        $goals = Goal::where('user_id', $user_id)->get();
+        $goals = Goal::with(['places.memo', 'times', 'prices.transportation'])
+             ->where('user_id', $user_id)
+             ->paginate(9);
         
         // requestからエリアを取得
         $area = $request->area;

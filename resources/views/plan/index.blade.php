@@ -53,6 +53,7 @@
                         @endif
                     </div>
             @endforeach
+            {{$goals->links()}}
         </div>
     </div>
     @else
