@@ -30,7 +30,7 @@
         <td>{{ $user->name }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->created_at }}</td>
-        <td>
+        <td >
             @if($user->id === auth()->id())
                 <div><i class="fas fa-user-check" style="color: #007bff;"></i></div>
             @else
