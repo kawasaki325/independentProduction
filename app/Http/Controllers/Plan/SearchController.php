@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Plan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 
 use App\Models\Goal;
 use App\Models\User;
@@ -27,7 +26,6 @@ class SearchController extends Controller
             'keyword' => 'max:255',
         ]);
         $user_id = $request->user()->id;
-
         $user = User::where('id' , $user_id)->firstOrFail();
         
         $keyword = mb_convert_kana($request->keyword, 's');
@@ -43,46 +41,88 @@ class SearchController extends Controller
         }
         
         // キーワードが含まれるデータを検索
-        $query = Goal::where('status', 'active');
+        if($request->keyword !== null){
 
-        if ($request->keyword !== null) {
-            $query->where(function ($subQuery) use ($escape_keywords) {
-                foreach ($escape_keywords as $keyword) {
-                    $subQuery->orWhere('content', 'like', '%' . $keyword . '%');
-                }
-            });
-        
-            $query->orWhereHas('places', function ($placeQuery) use ($escape_keywords) {
-                $placeQuery->where(function ($subQuery) use ($escape_keywords) {
+            $goalsa = Goal::where('status', 'active')
+            ->where(function ($subQuery) use ($escape_keywords) {
                     foreach ($escape_keywords as $keyword) {
                         $subQuery->orWhere('content', 'like', '%' . $keyword . '%');
                     }
                 });
-            });
+    
+            $goalsb = Goal::whereHas('places', function ($query) use ($escape_keywords) {
+                $query->where(function ($placeQuery) use ($escape_keywords) {
+                    foreach ($escape_keywords as $keyword) {
+                        $placeQuery->orWhere('content', 'like', '%' . $keyword . '%');
+                    }
+                });
+            })
+            ->where('status', 'active');
+ 
+
+        } else {
+            $goals=Goal::where('status', 'active');
         }
+
         
-        if ($price == 1500) {
-            $query->where('totalPrice', '<=', $price);
-        } elseif ($price == 5000) {
-            $query->where('totalPrice', '<=', $price)->where('totalPrice', '>=', 1501);
-        } elseif ($price == 10000) {
-            $query->where('totalPrice', '<=', $price)->where('totalPrice', '>=', 5001);
-        } elseif ($price == 10001) {
-            $query->where('totalPrice', '>', $price);
+        if(!(empty($goalsa))) {
+            if($price == 1500) {
+                $goalsa = $goalsa->where('totalPrice', '<=', $price);
+                $goalsb = $goalsb->where('totalPrice', '<=', $price);
+            } elseif($price == 5000) {
+                $goalsa = $goalsa->where('totalPrice', '<=', $price)
+                ->where('totalPrice', '>=', 1501);
+                $goalsb = $goalsb->where('totalPrice', '<=', $price)
+                ->where('totalPrice', '>=', 1501);
+            } elseif($price == 10000) {
+                $goalsa = $goalsa->where('totalPrice', '<=', $price)
+                ->where('totalPrice', '>=', 5001);
+                $goalsb = $goalsb->where('totalPrice', '<=', $price)
+                ->where('totalPrice', '>=', 5001);
+            } elseif($price == 10001) {
+                $goalsa = $goalsa->where('totalPrice', '>', $price);
+                $goalsb = $goalsb->where('totalPrice', '>', $price);
+            } else {
+
+            }
+
+            if($area != '未選択' && $area != null) {
+                $goalsa = $goalsa->where('start', $area);
+                $goalsb = $goalsb->where('start', $area);
+            }
+
+            $goals = $goalsa->union($goalsb);
+            
+        } else {
+
+            if($price == 1500) {
+                $goals = $goals->where('totalPrice', '<=', $price);
+            } elseif($price == 5000) {
+                $goals = $goals->where('totalPrice', '<=', $price)
+                ->where('totalPrice', '>=', 1501);
+            } elseif($price == 10000) {
+                $goals = $goals->where('totalPrice', '<=', $price)
+                ->where('totalPrice', '>=', 5001);
+            } elseif($price == 10001) {
+                $goals = $goals->where('totalPrice', '>', $price);
+            } else {
+                $goals = $goals;
+            }
+            
+    
+            if($area != '未選択' && $area != null) {
+                $goals = $goals->where('start', $area);
+            }
+            
         }
+
         
-        if ($area != '未選択' && $area != null) {
-            $query->where('start', $area);
-        }
-        
-        $goals = $query->paginate(6);
-        
+
+
+        $goals = $goals->paginate(6);
 
 
         $keyword = $request->keyword;
-
-
-
 
         return view('plan.share.index' , [
             'goals' => $goals,
