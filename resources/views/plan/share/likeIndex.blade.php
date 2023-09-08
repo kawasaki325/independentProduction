@@ -9,7 +9,7 @@
 @section('content')
 
 
-<div>
+<div class="pt-4">
     @if(!(count($goals) === 0))
     <div class="container">
         <div class="row row-md-1">
