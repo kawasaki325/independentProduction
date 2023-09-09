@@ -93,16 +93,16 @@
         <div class="row row-md-1">
             @foreach($goals as $goal)
                     <div class="col-md-4 col-sm-6 mb-4">
-                        <a href="{{ route('share/detail/{plan}', ['plan' => $goal->id]) }}" class="text-dark">
-                            <div class="card mx-auto" style="width: 14rem;">
+                        <div class="card mx-auto" style="width: 14rem;">
+                            <a href="{{ route('share/detail/{plan}', ['plan' => $goal->id]) }}" class="text-dark">
                                 <img src="{{ asset('img/test.jpg') }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <h5 class="card-text">{{ $goal->content }}</h5>
-                                    <p class="card-text mb-1">移動費：{{ $goal->totalPrice }}円</p>
-                                    <p class="card-text">{{ $goal->user->name }}さんの投稿</p>
-                                </div>
+                            </a>
+                            <div class="card-body text-center">
+                                <h5 class="card-text">{{ $goal->content }}</h5>
+                                <p class="card-text mb-1">移動費：{{ $goal->totalPrice }}円</p>
+                                <p class="card-text"><a href="{{ route('individual/{user_id}', ['user_id' => $goal->user->id]) }}">{{ $goal->user->name }}さん</a>の投稿</p>
                             </div>
-                        </a>
+                        </div>
                     </div>
             @endforeach
         </div>

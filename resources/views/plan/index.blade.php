@@ -38,16 +38,17 @@
         <div class="row row-md-1">
             @foreach($goals as $goal)
             <div class="col-md-4 col-sm-6 mb-4">
-                @if($goal->status == 'active')
-                <p class="text-center">投稿中です</p>
-                @endif
+                
                 <a href="{{ route('update/{plan}', ['plan' => $goal->id]) }}" class="text-dark">
                     <div class="card mx-auto" style="width: 14rem;">
                         <img src="{{ asset('img/test.jpg') }}" class="card-img-top" alt="...">
                         <div class="card-body text-center">
                             <h5 class="card-text">{{ $goal->content }}</h5>
                             <p class="card-text mb-1">{{ $goal->date }}</p>
-                            <p class="card-text">移動費：{{ $goal->totalPrice }}円</p>
+                            <p class="card-text mb-1">移動費：{{ $goal->totalPrice }}円</p>
+                            @if($goal->status == 'active')
+                                <p class="text-center mb-0 text-primary">投稿中</p>
+                            @endif
                         </div>
                     </div>
                 </a>

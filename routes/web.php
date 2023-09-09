@@ -58,11 +58,17 @@ Route::prefix('/plans')->group(function() {
 Route::prefix('/users')->group(function() {
     // プロフィール編集
     Route::get('/', App\Http\Controllers\User\profile\IndexController::class)->name('user');
+    // プロフィール編集
     Route::get('/create', App\Http\Controllers\User\profile\CreateController::class)->name('user/create');
     Route::put('/put/{user_id}', App\Http\Controllers\User\profile\PutController::class)->name('user/put/{user_id}');
+    // ユーザー管理画面
     Route::get('/admin', App\Http\Controllers\User\admin\IndexController::class)->name('admin');
     Route::put('/admin/put', App\Http\Controllers\User\admin\putController::class)->name('admin/put');
     Route::delete('/admin/delete/{user_id}', App\Http\Controllers\User\admin\DeleteController::class)->name('admin/delete/{user_id}');
+
+    // ユーザー画面
+    Route::get('/individual/{user_id}', App\Http\Controllers\User\Individual\IndexController::class)->name('individual/{user_id}');
+
 });
 
 
