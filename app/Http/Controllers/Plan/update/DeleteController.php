@@ -27,7 +27,7 @@ class DeleteController extends Controller
         $goal->delete();
 
         return redirect()
-            ->route('home')
+            ->route('/home')
             ->with('feedback.success', $message);
     }
 }
