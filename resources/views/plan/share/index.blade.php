@@ -9,7 +9,7 @@
 
 @section('content')
 
-<div class="pt-5">
+<div class="pt-3">
     <form action="{{ route('search') }}" method="get">
         <!-- 検索エリア・ -->
         <div class="d-flex align-items-center mb-5">
@@ -100,7 +100,13 @@
                             <div class="card-body text-center">
                                 <h5 class="card-text">{{ $goal->content }}</h5>
                                 <p class="card-text mb-1">移動費：{{ $goal->totalPrice }}円</p>
-                                <p class="card-text"><a href="{{ route('individual/{user_id}', ['user_id' => $goal->user->id]) }}">{{ $goal->user->name }}さん</a>の投稿</p>
+                                <p class="card-text">
+                                    @if(Auth::id() !== $goal->user->id)
+                                        <a href="{{ route('individual/{user_id}', ['user_id' => $goal->user->id]) }}">{{ $goal->user->name }}さん</a>の投稿
+                                    @else
+                                        {{ $goal->user->name }}さんの投稿
+                                    @endif
+                                </p>
                             </div>
                         </div>
                     </div>

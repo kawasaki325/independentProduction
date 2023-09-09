@@ -22,6 +22,7 @@
     <p class="ml-3">{{ $user->email }}</p>
 </div>
 
+
 <button class="btn btn-primary mt-3"><a href="{{ route('user/create') }}" class="text-decoration-none text-white">編集する</a></button>
 
 

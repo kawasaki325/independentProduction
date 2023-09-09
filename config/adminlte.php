@@ -251,6 +251,11 @@ return [
             'icon' => 'fas fa-user',
         ],
         [
+            'text' => 'フォロー一覧',
+            'url' => 'users/individual/follow/index',
+            'icon' => 'fas fa-users',
+        ],
+        [
             'text' => 'ユーザー管理',
             'url' => 'users/admin',
             'icon' => 'fas fa-users-cog',

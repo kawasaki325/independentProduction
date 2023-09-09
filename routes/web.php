@@ -56,7 +56,7 @@ Route::prefix('/plans')->group(function() {
 
 // ユーザーに関する処理
 Route::prefix('/users')->group(function() {
-    // プロフィール編集
+    // プロフィール編集画面
     Route::get('/', App\Http\Controllers\User\profile\IndexController::class)->name('user');
     // プロフィール編集
     Route::get('/create', App\Http\Controllers\User\profile\CreateController::class)->name('user/create');
@@ -68,6 +68,15 @@ Route::prefix('/users')->group(function() {
 
     // ユーザー画面
     Route::get('/individual/{user_id}', App\Http\Controllers\User\Individual\IndexController::class)->name('individual/{user_id}');
+    // ユーザーの投稿一覧
+    Route::get('/individual/postIndex/{user_id}', App\Http\Controllers\User\Individual\PostIndexController::class)->name('individual/postIndex/{user_id}');
+
+    // フォローが押されたときの処理
+    Route::post('/individual/follow', App\Http\Controllers\User\Individual\FollowController::class)->name('individual/follow');
+
+    // フォロー一覧
+    Route::get('/individual/follow/index', App\Http\Controllers\User\Individual\FollowIndexController::class)->name('individual/follow/index');
+
 
 });
 
