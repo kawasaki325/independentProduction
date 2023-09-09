@@ -31,7 +31,7 @@
         <td>{{ $user->email }}</td>
         <td>{{ $user->created_at }}</td>
         <td >
-            @if($user->id === auth()->id())
+            @if($user->id === auth()->id() || $user->id == 1)
                 <div><i class="fas fa-user-check" style="color: #007bff;"></i></div>
             @else
                 <form action="{{ route('admin/put') }}" method="post">
