@@ -1,6 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', '行先登録')
+@section('title', '旅行プランを作る')
+
+@section('content_header')
+    <h1>旅行プランを作る</h1>
+@stop
 
 
 @section('content')

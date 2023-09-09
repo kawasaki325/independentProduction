@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '商品登録')
+@section('title', '旅行プラン修正')
 
 @section('content_header')
 
