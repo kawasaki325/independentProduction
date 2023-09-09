@@ -50,7 +50,7 @@
             @endif
         </td>
         <td>
-            @if($user->id !== auth()->id())
+            @if($user->id !== auth()->id() && $user->id !== 1)
                 <form action="{{ route('admin/delete/{user_id}', ['user_id' => $user->id]) }}" method="post">
                     @method('DELETE')
                     @csrf
