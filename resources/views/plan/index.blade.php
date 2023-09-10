@@ -15,21 +15,28 @@
 
 <form action="{{ route('/home') }}" method="get">
     <!-- 検索エリア・ -->
-    <div class="d-flex align-items-center mb-2 pt-3">
-            <select type="text" class="form-control w-25 mr-2" name="area">
+    <div class="mb-2 pt-3 row align-items-center justify-content-center">
+        <div class="pr-2 col-md-6 col-6">
+            <select type="text" class="form-control" name="area">
                     <option value="未選択">現在の天気を検索できます</option>
                 @foreach(config('prefectures') as $key => $prefecture)
                     <option value="{{ $key }}">{{ $prefecture }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="col-md-6 col-2">
             <button type="submit">検索</button>
+        </div>
     </div>
 </form>
 
+
 @if($temp != null)
-    {{config('prefectures')[ $area ]}}の今の天気
-    <img src="{{$img}}" alt="天気の画像">
-    {{$temp}}度
+    <div class="answer">
+        {{config('prefectures')[ $area ]}}の今の天気
+        <img src="{{$img}}" alt="天気の画像">
+        {{$temp}}度
+    </div>
 @endif
 
 <div class="mt-4">
@@ -69,6 +76,11 @@
 
 @section('css')
 <style>
+    @media screen and (max-width: 767px) {
+  .answer {
+    text-align: center;
+  }
+}
 
 </style>
 @stop

@@ -48,65 +48,67 @@
         </div>
         @if($i != count($goal->places) - 1)
             <div class="js-content" style="display: none;">
-                <div class="list-group-item list-group-item-action d-flex align-items-center">
-                    <div class="d-flex">
-                        <div class="ml-3">
-                            @if($goal->prices[$i]->transportation->transportation === '車')
-                                <i class="fas fa-car"></i>
-                            @elseif($goal->prices[$i]->transportation->transportation === 'タクシー')
-                                <i class="fas fa-taxi"></i>
-                            @elseif($goal->prices[$i]->transportation->transportation === '飛行機')
-                                <i class="fas fa-plane"></i>
-                            @elseif($goal->prices[$i]->transportation->transportation === '電車')
-                                <i class="fas fa-train"></i>
-                            @elseif($goal->prices[$i]->transportation->transportation === '徒歩')
-                                <i class="fas fa-walking"></i>
-                            @elseif($goal->prices[$i]->transportation->transportation === 'その他')
-                                <i class="fas fa-otter"></i>
-                            @elseif($goal->prices[$i]->transportation->transportation === '新幹線')
-                                <div><img src="{{ asset('img/train.svg') }}" alt="" style = "width: 14px;"></div>
-                            @else
-                                <div>移動時間：</div>
-                            @endif
-                        </div>
-                        <div class="ml-3">
-                            @if($i !== 0)
-                                @php
-                                    $timeDifference = $goal->times[$i*2 + 1]->formattedTime->diffInSeconds($goal->times[$i*2]->formattedTime);
-                                    $hours = floor($timeDifference / 3600);
-                                    $minutes = floor(($timeDifference - ($hours * 3600)) / 60);
-                                @endphp
-
-                            @else
-                                @php
-                                    $timeDifference = $goal->times[1]->formattedTime->diffInSeconds($goal->times[0]->formattedTime);
-                                    $hours = floor($timeDifference / 3600);
-                                    $minutes = floor(($timeDifference - ($hours * 3600)) / 60);
-                                @endphp
-                            @endif
-                                @if ($hours > 0)
-                                    {{ $hours }} 時間
+                <div class="list-group-item list-group-item-action">
+                    <div class=" group-list">
+                        <div class="d-flex">
+                            <div class="ml-3">
+                                @if($goal->prices[$i]->transportation->transportation === '車')
+                                    <i class="fas fa-car"></i>
+                                @elseif($goal->prices[$i]->transportation->transportation === 'タクシー')
+                                    <i class="fas fa-taxi"></i>
+                                @elseif($goal->prices[$i]->transportation->transportation === '飛行機')
+                                    <i class="fas fa-plane"></i>
+                                @elseif($goal->prices[$i]->transportation->transportation === '電車')
+                                    <i class="fas fa-train"></i>
+                                @elseif($goal->prices[$i]->transportation->transportation === '徒歩')
+                                    <i class="fas fa-walking"></i>
+                                @elseif($goal->prices[$i]->transportation->transportation === 'その他')
+                                    <i class="fas fa-otter"></i>
+                                @elseif($goal->prices[$i]->transportation->transportation === '新幹線')
+                                    <div><img src="{{ asset('img/train.svg') }}" alt="" style = "width: 14px;"></div>
+                                @else
+                                    <div>移動時間：</div>
                                 @endif
-
-                                @if ($minutes > 0)
-                                    {{ $minutes }} 分
+                            </div>
+                            <div class="ml-3">
+                                @if($i !== 0)
+                                    @php
+                                        $timeDifference = $goal->times[$i*2 + 1]->formattedTime->diffInSeconds($goal->times[$i*2]->formattedTime);
+                                        $hours = floor($timeDifference / 3600);
+                                        $minutes = floor(($timeDifference - ($hours * 3600)) / 60);
+                                    @endphp
+    
+                                @else
+                                    @php
+                                        $timeDifference = $goal->times[1]->formattedTime->diffInSeconds($goal->times[0]->formattedTime);
+                                        $hours = floor($timeDifference / 3600);
+                                        $minutes = floor(($timeDifference - ($hours * 3600)) / 60);
+                                    @endphp
                                 @endif
-                        </div>
-                    </div>
-                    <div class="ml-5 d-flex">
-                        <div><i class="fas fa-coins"></i></div>
-                        <div class="ml-3">{{ $goal->prices[$i]->amount }}円</div>
-                    </div>
-                    @if( $goal->places[$i]->memo->content !== null)
-                        <div class="w-50 ml-5">
-                            <div>メモ</div>
-                            <div class="border">
-                                <div class="w-100 text-break">
-                                    {!! nl2br(e($goal->places[$i]->memo->content)) !!}
-                                </div>
+                                    @if ($hours > 0)
+                                        {{ $hours }} 時間
+                                    @endif
+    
+                                    @if ($minutes > 0)
+                                        {{ $minutes }} 分
+                                    @endif
                             </div>
                         </div>
-                    @endif
+                        <div class="d-flex money">
+                            <div><i class="fas fa-coins ml-3"></i></div>
+                            <div class="ml-3">{{ $goal->prices[$i]->amount }}円</div>
+                        </div>
+                        @if( $goal->places[$i]->memo->content !== null)
+                            <div class="row memo ml-2">
+                                <div class="col-md-2 col-2">メモ</div>
+                                <div class="border col-md-8 col-10">
+                                    <div class="w-100 text-break">
+                                        {!! nl2br(e($goal->places[$i]->memo->content)) !!}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         @else
@@ -137,12 +139,12 @@
 <div class="d-flex mt-3">
     <button class="btn btn-primary ml-2"><a href="{{ route('/home') }}" class="text-decoration-none text-white">戻る</a></button>
     <button class="btn btn-primary ml-2"><a href="{{ route('update/create/{plan}', ['plan' => $goal->id]) }}" class="text-decoration-none text-white">編集</a></button>
-    <form action="{{ route('update/delete/{plan}', ['plan' => $goal->id]) }}" method="post">
+    <form action="{{ route('update/delete/{plan}', ['plan' => $goal->id]) }}" method="post" class="mb-0">
         @method('DELETE')
         @csrf
         <button class="btn btn-primary ml-2" type="submit" onclick='return confirm("本当に削除しますか？")'>削除</button>
     </form>
-    <form action="{{ route('status/put/{plan}', ['plan' => $goal->id]) }}" method="post">
+    <form action="{{ route('status/put/{plan}', ['plan' => $goal->id]) }}" method="post" class="mb-0">
         @method('PUT')
         @csrf
         @if($goal->status === 'normal')
@@ -170,5 +172,33 @@
 
 @section('css')
 <style>
+    .group-list {
+        display: flex;
+        align-items: center;
+    }
+
+    .money {
+        margin-left: 3rem;
+    }
+
+    .memo {
+        margin-left: 3rem;
+        width: 50%;
+    }
+
+
+    @media screen and (max-width: 767px) {
+    .group-list {
+        display: block;
+    }
+
+    .money {
+        margin: 5px 0px;
+    }
+
+    .memo {
+        margin: 5px 0px;
+        width:100%
+    }
+}
 </style>
-@stop

@@ -37,53 +37,57 @@ $message = null;
 @csrf
     <div id="js-plan" data-plan-id="1">
         <div>
-            <div class="d-flex p-3 bg-white align-items-center">
+            <div class="plan-title p-3 bg-white align-items-center">
                 <input type="text" class="form-control" id="goal" name="goal" placeholder="プランの名前" value="{{ old('goal') }}" autofocus>
-                <select type="text" class="form-control w-25" name="area">
+                <select type="text" class="form-control area" name="area">
                         <option value="">出発地する県名</option>
                     @foreach(config('prefectures') as $key => $prefecture)
                         <option value="{{ $prefecture }}">{{ $prefecture }}</option>
                     @endforeach
                 </select>
-                <input type="date" class="form-control w-25" id="date" name="date" value="{{ old('date') }}">
+                <input type="date" class="form-control date" id="date" name="date" value="{{ old('date') }}">
             </div>
 
-            <div class="list-group-item list-group-item-action d-flex align-items-center">
-                <div>
-                    <input type="time" class="form-control" id="time" name="time[0]" placeholder="時間">
+            <div class="list-group-item list-group-item-action align-items-center">
+                <div class="plan-start-main">
+                    <div>
+                        <input type="time" class="form-control time" id="time" name="time[0]" placeholder="時間">
+                    </div>
+                    <div>
+                        <input type="text" class="form-control place" id="place" name="place[0]" placeholder="出発">
+                    </div>
+                    <textarea class="memo" name="memo[0]" id="memo" placeholder="メモ"></textarea>
                 </div>
-                <div>
-                    <input type="text" class="form-control" id="place" name="place[0]" placeholder="出発">
-                </div>
-                <textarea class="w-100" name="memo[0]" id="memo" placeholder="メモ"></textarea>
             </div>
         </div>
 
         <div class="add-point">
-            <div class="list-group-item list-group-item-action d-flex justify-content-end align-items-center">
-                <div>移動費：</div>
-                <input type="number" class="form-control w-25" id="price" name="price[0]" value="0">
-                <div class="mr-5">円</div>
+            <div class="list-group-item list-group-item-action justify-content-end align-items-center plan-sub">
+                <div class="money">
+                    移動費：<input type="number" class="form-control" id="price" name="price[0]" value="0">円
+                </div>
 
-                移動手段：
-                <select name="transportation[0]" id="transportation">
-                    <option value="車">車</option>
-                    <option value="タクシー">タクシー</option>
-                    <option value="電車">電車</option>
-                    <option value="新幹線">新幹線</option>
-                    <option value="徒歩">徒歩</option>
-                    <option value="その他">その他</option>
-                </select>
+                <div class="transportation">
+                    移動手段：
+                    <select name="transportation[0]" id="transportation">
+                        <option value="車">車</option>
+                        <option value="タクシー">タクシー</option>
+                        <option value="電車">電車</option>
+                        <option value="新幹線">新幹線</option>
+                        <option value="徒歩">徒歩</option>
+                        <option value="その他">その他</option>
+                    </select>
+                </div>
             </div>
     
-            <div class="list-group-item list-group-item-action d-flex align-items-center">
+            <div class="plan-start-main list-group-item list-group-item-action align-items-center">
                 <div>
-                    <input type="time" class="form-control" id="timeNext" name="time[1]" placeholder="時間">
+                    <input type="time" class="form-control time" id="timeNext" name="time[1]" placeholder="時間">
                 </div>
                 <div>
-                    <input type="text" class="form-control" id="placeNext" name="place[1]" placeholder="目的地">
+                    <input type="text" class="form-control place" id="placeNext" name="place[1]" placeholder="目的地">
                 </div>
-                <textarea class="w-100" name="memo[1]" id="memoNext" placeholder="メモ"></textarea>
+                <textarea class="memo" name="memo[1]" id="memoNext" placeholder="メモ"></textarea>
             </div>
         </div>
 
@@ -126,10 +130,111 @@ $message = null;
 
 @section('css')
 <style>
-
-
-    .input-items {
+    .plan-title {
         display: flex;
+    }
+
+    .area {
+        width: 25%;
+    }
+    
+    .date {
+        width: 25%;
+    }
+
+    .plan-start {
+        display: flex;
+    }
+
+    .plan-main {
+        display: flex;
+    }
+
+    .plan-start-main {
+        display: flex;
+        align-items: center;
+    }
+
+    .plan-start-main-session {
+        display: flex;
+        align-items: center;
+    }
+
+    .memo {
+        width: 100%;
+    }
+
+    .plan-sub {
+        display: flex;
+    }
+
+    .money {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin-right: 50px;
+    }
+
+    .money input {
+        width: 25%;
+    }
+    
+    @media screen and (max-width: 767px) {
+        .plan-title {
+            display: block;
+        }
+        .area {
+            width: 170px
+        }
+        
+        .date {
+            width: 170px;
+        }
+
+        .plan-start {
+            display: block;
+        }
+
+        .plan-main {
+            display: block;
+        }
+
+        .date {
+            width: 150px;
+        }
+
+        .plan-start-main {
+            display: block;
+        }
+        
+
+        .time {
+        width: 100px;
+        }
+        
+        .place {
+            width: 150px;
+        }
+
+        .plan-sub {
+            display: block;
+        }
+
+        .money {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            margin-right: 0px;
+        }
+
+        .transportation {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .money input {
+            width: 100px;
+        }
     }
 
 </style>

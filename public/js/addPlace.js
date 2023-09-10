@@ -8,11 +8,12 @@ $(function() {
         let count = $('#js-plan').attr('data-plan-id');
         count++;
         $('.add-point').before(`<div id="js-plan-${count - 1}">
-                <div class="list-group-item list-group-item-action d-flex justify-content-end align-items-center">
-                    <div>移動費：</div>
-                    <input type="number" class="form-control w-25" id="price[${count-2}]" name="price[${count-2}]" value="0">
-                    <div class="mr-5">円</div>
-                    移動手段：<select name="transportation[${count - 2}]" id="transportation[${count - 2}]">
+                <div class="list-group-item list-group-item-action justify-content-end align-items-center plan-sub">
+                    <div class="money">
+                        移動費：<input type="number" class="form-control" id="price[${count-2}]" name="price[${count-2}]" value="0">円
+                    </div>
+                    <div class="transportation">
+                        移動手段：<select name="transportation[${count - 2}]" id="transportation[${count - 2}]">
                                 <option value="車">車</option>
                                 <option value="タクシー">タクシー</option>
                                 <option value="電車">電車</option>
@@ -20,14 +21,17 @@ $(function() {
                                 <option value="徒歩">徒歩</option>
                                 <option value="その他">その他</option>
                             </select>
-                </div>
-                <div class="list-group-item list-group-item-action d-flex align-items-center">
-                    <div>
-                        <input type="time" class="form-control" id="time[${count*2 - 3}]" name="time[${count*2 - 3}]" placeholder="時間"">
-                        <input type="time" class="form-control" id="time[${count*2 - 2}]" name="time[${count*2 - 2}]" placeholder="時間"">
                     </div>
-                    <div>
-                        <input type="text" class="form-control" id="place[${count - 1}]" name="place[${count - 1}]" placeholder="経由地">
+                </div>
+                <div class="list-group-item list-group-item-action align-items-center plan-start">
+                    <div class="plan-start-main-session">
+                        <div class="text-center">
+                            <input type="time" class="form-control time" id="time[${count*2 - 3}]" name="time[${count*2 - 3}]" placeholder="時間"">
+                            <input type="time" class="form-control time" id="time[${count*2 - 2}]" name="time[${count*2 - 2}]" placeholder="時間"">
+                        </div>
+                        <div>
+                            <input type="text" class="form-control place" id="place[${count - 1}]" name="place[${count - 1}]" placeholder="経由地">
+                        </div>
                     </div>
                     <textarea class="w-100" name="memo[${count - 1}]" id="memo[${count - 1}]" placeholder="メモ"></textarea>
                 </div>

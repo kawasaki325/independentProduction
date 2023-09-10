@@ -12,23 +12,26 @@
 <div class="pt-3">
     <form action="{{ route('search') }}" method="get">
         <!-- 検索エリア・ -->
-        <div class="d-flex align-items-center mb-5">
-            <div>
+        <div class="search-area align-items-center mb-5">
+            <div class="search-main">
                 @if(isset( $keyword ))
                     <input type="text" name="keyword" value="{{ $keyword }}">
                 @else
                     <input type="text" placeholder="キーワード検索" name="keyword" >
                 @endif
-                <button type="submit">検索</button>
+                <button class="ml-2" type="submit">検索</button>
             </div>
             @error('keyword')
                 <p style="color: red;">{{ $message }}</p>
             @enderror
 
-            <div class="js-open-button ml-3 text-primary" data-target=".target-modal">絞り込み</div>
-            <div class="ml-3">
-                <a href="{{ route('share') }}">クリア</a>
+            <div class="search-sub">
+                <div class="js-open-button ml-3 text-primary" data-target=".target-modal">絞り込み</div>
+                <div class="ml-3">
+                    <a href="{{ route('share') }}">クリア</a>
+                </div>
             </div>
+
         </div>
     </form>
 
@@ -126,6 +129,19 @@
 
 @section('css')
 <style>
+.search-area {
+    display: flex;
+}
+
+.search-main {
+    display: flex;
+}
+
+.search-sub {
+    display: flex;
+    margin-top: 5px;
+}
+
 .js-open-button {
     cursor: pointer;
 }
@@ -191,6 +207,12 @@
 
 .radio-area {
     margin: 0 auto;
+}
+
+@media screen and (max-width: 767px) {
+    .search-area {
+        display: block;
+    }
 }
 </style>
 @stop

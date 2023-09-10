@@ -13,47 +13,51 @@
     <p style="color: green;">{{ session('feedback.success') }}</p>
 @endif
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">名前</th>
-      <th scope="col">メールアドレス</th>
-      <th scope="col">登録日</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($users as $user)
-        <tr>
-        <th scope="row">{{ $user->id }}</th>
-        <td>{{ $user->name }}</td>
-        <td>{{ $user->email }}</td>
-        <td>{{ $user->created_at }}</td>
-        <td >
-            <button class="btn btn-primary btn-sm btn-reverse mb-3"><a href="{{ route('individual/{user_id}', ['user_id' => $user->id]) }}" class="text-white">プロフィール</a></button>
-        </td>
-        <td>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr class="main">
+        <th scope="col">ID</th>
+        <th scope="col">名前</th>
+        <th scope="col">メールアドレス</th>
+        <th scope="col">登録日</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($users as $user)
+          <tr>
+          <th scope="row">{{ $user->id }}</th>
+          <td>{{ $user->name }}</td>
+          <td>{{ $user->email }}</td>
+          <td >{{ $user->created_at }}</td>
+          <td >
+              <button class="btn btn-primary btn-sm btn-reverse mb-3"><a href="{{ route('individual/{user_id}', ['user_id' => $user->id]) }}" class="text-white">プロフィール</a></button>
+          </td>
 
-        </td>
+          </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 
-        </tr>
-    @endforeach
-  </tbody>
-</table>
+
 
 @stop
 
 @section('css')
     <style>
-        .admin-btn {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-        }
+      .table {
+        width: 100%;
+      }
+      .btn {
+        width: 110px;
+      }
+      td {
+          white-space: nowrap;
+      }
+        @media screen and (max-width: 767px) {
 
-        .admin {
-            cursor: pointer;
         }
     </style>
 @stop
