@@ -114,7 +114,7 @@
         @else
             @if( $goal->places[$i]->memo->content !== null)
                 <div class="js-content" style="display: none;">
-                    <div class="list-group-item list-group-item-action d-flex align-items-center">
+                    <div class="list-group-item list-group-item-action last-memo align-items-center">
                         <div class="row ml-2">
                             <div class="col-md-2 col-2">メモ</div>
                             <div class="border col-md-8 col-10">
@@ -184,6 +184,10 @@
     .memo {
         margin-left: 3rem;
         width: 50%;
+    }
+
+    .last-memo {
+        display: flex;
     }
 
 
