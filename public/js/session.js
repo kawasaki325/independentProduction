@@ -50,17 +50,18 @@ $(function() {
                     
                     let priceInput = '';
                     if (price[i-2] !== undefined && price[i-2] !== null && price[i-2] !== '') {
-                        priceInput = `<input type="number" class="form-control w-25" id="price[${i-2}]" name="price[${i-2}]" value="${price[i-2]}">`;
+                        priceInput = `<input type="number" class="form-control" id="price[${i-2}]" name="price[${i-2}]" value="${price[i-2]}">`;
                     } else {
-                        priceInput = `<input type="number" class="form-control w-25" id="price[${i-2}]" name="price[${i-2}]" value="0">`;
+                        priceInput = `<input type="number" class="form-control" id="price[${i-2}]" name="price[${i-2}]" value="0">`;
                     }
 
-                    $('.add-point').before(`<div id="js-plan-${i-1}"">
-                    <div class="list-group-item list-group-item-action d-flex justify-content-end align-items-center">
-                        <div>移動費：</div>
-                        ${priceInput}
-                        <div class="mr-5">円</div>
-                        移動手段：<select name="transportation[${i-2}]" id="transportation[${i-2}]">
+                    $('.add-point').before(`<div id="js-plan-${i-1}">
+                    <div class="list-group-item list-group-item-action justify-content-end align-items-center plan-sub">
+                        <div class="money">
+                        移動費：${priceInput}円
+                        </div>
+                        <div class="transportation">
+                            移動手段：<select name="transportation[${i-2}]" id="transportation[${i-2}]">
                                         <option value="車" ${transportation[i-2] === '車' ? 'selected' : ''}>車</option>
                                         <option value="タクシー" ${transportation[i-2] === 'タクシー' ? 'selected' : ''}>タクシー</option>
                                         <option value="電車"${transportation[i-2] === '電車' ? 'selected' : ''}>電車</option>
@@ -68,15 +69,18 @@ $(function() {
                                         <option value="徒歩"${transportation[i-2] === '徒歩' ? 'selected' : ''}>徒歩</option>
                                         <option value="その他"${transportation[i-2] === 'その他' ? 'selected' : ''}>その他</option>
                                     </select>
+                        </div>
                     </div>
 
-                    <div class="list-group-item list-group-item-action d-flex align-items-center">
-                        <div>
-                            <input type="time" class="form-control" id="time[${i-2}]" name="time[${i * 2 - 3}]" placeholder="時間" value="${time[i * 2 - 3]}">
-                            <input type="time" class="form-control" id="time[${i-1}]" name="time[${i * 2 - 2}]" placeholder="時間" value="${time[i * 2 - 2]}">
-                        </div>
-                        <div>
-                            <input type="text" class="form-control" id="place[${i-1}]" name="place[${i-1}] " placeholder="経由地" value="${place[i - 1] ?? ''}">
+                    <div class="list-group-item list-group-item-action align-items-center plan-start">
+                        <div class="plan-start-main-session">
+                            <div class="text-center">
+                                <input type="time" class="form-control time" id="time[${i-2}]" name="time[${i * 2 - 3}]" placeholder="時間" value="${time[i * 2 - 3]}">
+                                <input type="time" class="form-control time" id="time[${i-1}]" name="time[${i * 2 - 2}]" placeholder="時間" value="${time[i * 2 - 2]}">
+                            </div>
+                            <div>
+                                <input type="text" class="form-control place" id="place[${i-1}]" name="place[${i-1}] " placeholder="経由地" value="${place[i - 1] ?? ''}">
+                            </div>
                         </div>
                         <textarea class="w-100" name="memo[${i-1}]" id="memo[${i-1}]" placeholder="メモ">${memo[i-1] ?? ''}</textarea>
                     </div>
