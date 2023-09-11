@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>旅行プラン作成アプリ</h1>
+    <h1>旅行日程管理アプリ</h1>
 @stop
 
 @section('content')
