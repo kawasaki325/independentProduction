@@ -50,7 +50,7 @@
             <div class="js-content" style="display: none;">
                 <div class="list-group-item list-group-item-action">
                     <div class=" group-list">
-                        <div class="d-flex">
+                        <div class="d-flex align-items-center">
                             <div class="ml-3">
                                 @if($goal->prices[$i]->transportation->transportation === '車')
                                     <i class="fas fa-car"></i>
@@ -94,7 +94,7 @@
                                     @endif
                             </div>
                         </div>
-                        <div class="d-flex money">
+                        <div class="d-flex align-items-center money">
                             <div><i class="fas fa-coins ml-3"></i></div>
                             <div class="ml-3">{{ $goal->prices[$i]->amount }}円</div>
                         </div>
