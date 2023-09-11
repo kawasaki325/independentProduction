@@ -16,7 +16,7 @@
 <form action="{{ route('/home') }}" method="get">
     <!-- 検索エリア・ -->
     <div class="mb-2 pt-3 row align-items-center justify-content-center">
-        <div class="pr-2 col-md-6 col-6">
+        <div class="pr-2 col-md-6 col-7">
             <select type="text" class="form-control" name="area">
                     <option value="未選択">現在の天気を検索できます</option>
                 @foreach(config('prefectures') as $key => $prefecture)

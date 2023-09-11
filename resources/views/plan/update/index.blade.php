@@ -115,9 +115,9 @@
             @if( $goal->places[$i]->memo->content !== null)
                 <div class="js-content" style="display: none;">
                     <div class="list-group-item list-group-item-action d-flex align-items-center">
-                        <div class="w-50 ml-5">
-                            <div>メモ</div>
-                            <div class="border">
+                        <div class="row ml-2">
+                            <div class="col-md-2 col-2">メモ</div>
+                            <div class="border col-md-8 col-10">
                                 <div class="w-100 text-break">
                                     {!! nl2br(e($goal->places[$i]->memo->content)) !!}
                                 </div>
