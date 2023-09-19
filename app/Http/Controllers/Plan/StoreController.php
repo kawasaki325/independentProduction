@@ -23,7 +23,6 @@ class StoreController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // 行先を登録する
         // validation（チェックのみ）
         $validator = Validator::make($request->all(), [
             'goal' => 'required',
@@ -41,9 +40,11 @@ class StoreController extends Controller
             'price.*' => 'required',
         ]);
 
-        // validation エラーがある場合、エラーメッセージをダンプする
+        // validation エラーがある場合
         if ($validator->fails()) {
+            // エラーメッセージを取得
             $errors = $validator->errors()->messages();
+            // 入力された情報をJSON形式に変換する
             $goal_json = json_encode($request->goal);
             $date_json = json_encode($request->date);
             $place_json = json_encode($request->place);

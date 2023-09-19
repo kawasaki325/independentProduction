@@ -36,14 +36,18 @@ class IndexController extends Controller
         $temp = null;
         $img = null;
 
-
+        // areaが入力されていれば
         if($area !== null && $area !== '未選択') {
+            // apiで入力された地域の天気情報をjsonで取得
             $url = "http://api.openweathermap.org/data/2.5/weather?q={$area}&appid=84fe9970e0b70d3248576b9eec7788d8&lang=ja&units=metric";
             $response = Http::get($url);
             
+            // $responseから天気の情報を取得
             $weather = $response['weather'][0]['main'];
+            // $responseから温度の情報を取得
             $temp = $response['main']['temp'];
     
+            // 天気によって画像データを選択する
             switch ($weather){
                 case 'Clouds':
                     $img='http://openweathermap.org/img/w/04d.png';
@@ -70,7 +74,6 @@ class IndexController extends Controller
                     $img = 'http://openweathermap.org/img/w/01n.png';
             }
         }
-
 
         return view('plan.index' , [
             'goals' => $goals,

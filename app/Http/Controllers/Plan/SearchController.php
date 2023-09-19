@@ -22,35 +22,50 @@ class SearchController extends Controller
     public function __invoke(Request $request)
     {
         // 検索機能
+
+        // キーワードをバリデーション処理
         $this->validate($request, [
             'keyword' => 'max:255',
         ]);
+
+        // ログインユーザーのidを取得
         $user_id = $request->user()->id;
+
+        // ログインユーザーの情報を取得
         $user = User::where('id' , $user_id)->firstOrFail();
         
+        // 金額のリクエストに変数名を付ける
+        $price = $request->price;
+        
+        // エリアのリクエストに変数名を付ける
+        $area = $request->area;
+
+        // キーワードの全角スペースを半角スペースに変更
         $keyword = mb_convert_kana($request->keyword, 's');
+
+        // キーワードをスペースで区切って連想配列とする
         $keywords = preg_split('/[\s]+/', $keyword);
+
+        // 連想配列を配列として保存するための変数を定義
         $escape_keywords=[];
         
-        $price = $request->price;
-
-        $area = $request->area;
-        
+        // keywordsをescape_keywordsに配列として導入
         foreach($keywords as $keyword) {
             $escape_keywords[] = $keyword ;
         }
         
         // キーワードが含まれるデータを検索
         if($request->keyword !== null){
-
-            $goalsa = Goal::where('status', 'active')
+            // statusがactiveかつcontentにキーワードが含まれるものを検索
+            $goalsA = Goal::where('status', 'active')
             ->where(function ($subQuery) use ($escape_keywords) {
                     foreach ($escape_keywords as $keyword) {
                         $subQuery->orWhere('content', 'like', '%' . $keyword . '%');
                     }
                 });
     
-            $goalsb = Goal::whereHas('places', function ($query) use ($escape_keywords) {
+            // statusがactiveかつリレーション先のplaceにキーワードが含まれるものを検索
+            $goalsB = Goal::whereHas('places', function ($query) use ($escape_keywords) {
                 $query->where(function ($placeQuery) use ($escape_keywords) {
                     foreach ($escape_keywords as $keyword) {
                         $placeQuery->orWhere('content', 'like', '%' . $keyword . '%');
@@ -61,40 +76,41 @@ class SearchController extends Controller
  
 
         } else {
+            // キーワードがなければstatusがactiveのものを取得
             $goals=Goal::where('status', 'active');
         }
 
-        
-        if(!(empty($goalsa))) {
+        // $goalAがからでなければ（キーワードが空でない場合）
+        if(!(empty($goalsA)) ) {
+            // 金額範囲の指定があれば$goalAと$goalBから絞り込み
             if($price == 1500) {
-                $goalsa = $goalsa->where('totalPrice', '<=', $price);
-                $goalsb = $goalsb->where('totalPrice', '<=', $price);
+                $goalsA = $goalsA->where('totalPrice', '<=', $price);
+                $goalsB = $goalsB->where('totalPrice', '<=', $price);
             } elseif($price == 5000) {
-                $goalsa = $goalsa->where('totalPrice', '<=', $price)
+                $goalsA = $goalsA->where('totalPrice', '<=', $price)
                 ->where('totalPrice', '>=', 1501);
-                $goalsb = $goalsb->where('totalPrice', '<=', $price)
+                $goalsB = $goalsB->where('totalPrice', '<=', $price)
                 ->where('totalPrice', '>=', 1501);
             } elseif($price == 10000) {
-                $goalsa = $goalsa->where('totalPrice', '<=', $price)
+                $goalsA = $goalsA->where('totalPrice', '<=', $price)
                 ->where('totalPrice', '>=', 5001);
-                $goalsb = $goalsb->where('totalPrice', '<=', $price)
+                $goalsB = $goalsB->where('totalPrice', '<=', $price)
                 ->where('totalPrice', '>=', 5001);
             } elseif($price == 10001) {
-                $goalsa = $goalsa->where('totalPrice', '>', $price);
-                $goalsb = $goalsb->where('totalPrice', '>', $price);
-            } else {
+                $goalsA = $goalsA->where('totalPrice', '>', $price);
+                $goalsB = $goalsB->where('totalPrice', '>', $price);
+            } 
 
-            }
-
+            // 出発地の入力があれば出発地点で絞り込み
             if($area != '未選択' && $area != null) {
-                $goalsa = $goalsa->where('start', $area);
-                $goalsb = $goalsb->where('start', $area);
+                $goalsA = $goalsA->where('start', $area);
+                $goalsB = $goalsB->where('start', $area);
             }
 
-            $goals = $goalsa->union($goalsb);
-            
+            // goalAとgoalBで絞り込んだ条件を結合
+            $goals = $goalsA->union($goalsB)->distinct();
+            // goalAが空であれば
         } else {
-
             if($price == 1500) {
                 $goals = $goals->where('totalPrice', '<=', $price);
             } elseif($price == 5000) {
@@ -105,23 +121,17 @@ class SearchController extends Controller
                 ->where('totalPrice', '>=', 5001);
             } elseif($price == 10001) {
                 $goals = $goals->where('totalPrice', '>', $price);
-            } else {
-                $goals = $goals;
-            }
-            
-    
+            } 
+
             if($area != '未選択' && $area != null) {
                 $goals = $goals->where('start', $area);
             }
-            
         }
 
-        
-
-
+        // 絞り込んだ条件でgoalテーブルから取得
         $goals = $goals->paginate(6);
 
-
+        // キーワードを変数を与える
         $keyword = $request->keyword;
 
         return view('plan.share.index' , [

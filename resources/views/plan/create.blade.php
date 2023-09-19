@@ -105,7 +105,7 @@ $message = null;
 <script>
     $(function() {
         @if (count($errors) > 0)
-            // コントローラーから送ったjsonデータを取得
+            // コントローラーから送ったjsonデータを取得してjson形式
             var goal = @json($goal);
             var date = @json($date);
             var place = @json($place);
