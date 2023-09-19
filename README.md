@@ -1,35 +1,37 @@
-## 商品管理システム
+# 旅行日程管理アプリ
 
-### 環境構築手順
+## 概要
 
-* Gitクローン
-* .env.example をコピーして .env を作成
-* MySQLかPostgreSQLのデータベース作成（名前：item_management）  
-  ローカルでMAMPを使用しているのであれば、MySQL推奨
-* .env にデータベース接続情報追加
+旅行の日程を管理するため、目的地への移動時間・滞在時間・移動費などを管理する。
+
+
+作った日程をユーザー同士で共有することで、住んでいる地域から出発する旅行プランを参考にすることができる。
+
+出かけたいけど1から調べてプランを考えることが苦手な人や、どのくらいの費用でどこに行けるかを知りたい人の参考となる。
+
+## 主な機能
+- ログイン・ログアウト機能
+- 旅行日程のデータの登録・編集・削除機能
+- ユーザー同士のフォロー機能
+- 旅行日程のユーザー同士での共有
+- 共有した旅行日程のいいね機能
+- 旅行日程の検索機能
+- ユーザー情報の更新・削除機能
+- 管理者権限によるユーザー管理
+
+## 開発環境
+- php 8.2
+- MySQL 8.2
+- Laravel 8.83.27
+
+## 設計書
+[設計書ページへ](https://drive.google.com/drive/folders/1o7RPs4jEhr4WxEPUqY5nxuDJFUnDy3ui)
+
+## システム閲覧
+[アプリケーションページへ](https://travel-laravel-797c7d9e9a3d.herokuapp.com/)
+
+## テストアカウント情報
 ```
-例）
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=item_management
-DB_USERNAME=root
-DB_PASSWORD=root
-```
-* APP_KEY生成
-```
-$ php artisan key:generate
-```
-* Composerインストール
-```
-$ composer install
-```
-* フロント環境構築
-```
-$ npm install
-$ npm run dev
-```
-* マイグレーション
-```
-$ php artisan migrate
+メールアドレス : kawasaki@techis.jp
+パスワード : kawasaki
 ```

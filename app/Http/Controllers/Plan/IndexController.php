@@ -46,7 +46,7 @@ class IndexController extends Controller
             $weather = $response['weather'][0]['main'];
             // $responseから温度の情報を取得
             $temp = $response['main']['temp'];
-    
+
             // 天気によって画像データを選択する
             switch ($weather){
                 case 'Clouds':
