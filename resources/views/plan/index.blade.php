@@ -76,11 +76,6 @@
 
 @section('css')
 <style>
-    @media screen and (max-width: 767px) {
-  .answer {
-    text-align: center;
-  }
-}
 
 </style>
 @stop
