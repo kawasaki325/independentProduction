@@ -25,7 +25,7 @@
 - Laravel 8.83.27
 
 ## 設計書
-[設計書ページへ](https://drive.google.com/drive/folders/1o7RPs4jEhr4WxEPUqY5nxuDJFUnDy3ui)
+[設計書ページへ](https://drive.google.com/drive/folders/1IOmkyuFCS51P32CDwNHf4D5jvvjQribl)
 
 ## システム閲覧
 [アプリケーションページへ](https://travel-laravel-797c7d9e9a3d.herokuapp.com/)
