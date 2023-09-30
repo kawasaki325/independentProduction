@@ -32,6 +32,6 @@
 
 ## テストアカウント情報
 ```
-メールアドレス : kawasaki@techis.jp
-パスワード : kawasaki
+メールアドレス : admin@techis.jp
+パスワード : adminadmin
 ```
