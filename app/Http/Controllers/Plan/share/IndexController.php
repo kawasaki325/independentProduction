@@ -22,7 +22,9 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //投稿されたプラン一覧を取得
+        // 投稿されているデータを表示する
+        
+        //goalテーブルのstatusがactiveのデータを取得
         $goals = Goal::where('status', 'active')
         ->with(['places.memo', 'times', 'prices.transportation'])
         ->orderBy('updated_at', 'desc')

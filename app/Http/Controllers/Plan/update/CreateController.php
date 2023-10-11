@@ -17,7 +17,9 @@ class CreateController extends Controller
      */
     public function __invoke(Request $request)
     {
+        // リクエストからplan_idを取得
         $plan_id = $request->route('plan');
+        // 取得したplan_idの投稿を取得
         $goal = Goal::where('id', $plan_id)->firstOrFail();
 
         return view('plan.update.create' , [

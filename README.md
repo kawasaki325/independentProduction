@@ -33,5 +33,5 @@
 ## テストアカウント情報
 ```
 メールアドレス : admin@techis.jp
-パスワード : adminadmin
+パスワード : adminAccount
 ```
